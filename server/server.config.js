@@ -6,7 +6,9 @@ const port = 3000;
 
 var index = require("./routes/index");
 var users = require("./routes/users");
-
+var chat = require("./routes/chat");
+var project = require("./routes/project");
+var task = require("./routes/task");
 var app = express();
 
 
@@ -31,16 +33,18 @@ app.use(express.static(path.join(__dirname, "../client")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use((req,res,next)=>{
-    res.header("Access-Control-Allow-Origin","*");
-    res.header("Access-Control-Allow-Methods","GET,PUT,POST,DELETE");
-    res.header("Access-Control-Allow-Headers","Content-Type");
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
     next();
 });
 
 app.use('/', index);
 app.use('/api', users);
-
+app.use('/api', chat);
+app.use('/api', project);
+app.use('/api', task);
 /*
 *STARTING SERVER
 */

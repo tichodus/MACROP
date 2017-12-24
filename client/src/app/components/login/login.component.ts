@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { User } from '../../models/user';
 import { UsersService } from '../../services/users.service';
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(loginForm: NgForm) {
+  login(loginForm: NgForm) {
     let username = loginForm.value.username;
     let password = loginForm.value.password;
 
