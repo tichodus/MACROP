@@ -10,7 +10,10 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LogoComponent } from './components/logo/logo.component';
-
+import { CollapseModule } from "ngx-bootstrap";
+import {SignUpComponent} from './components/sign-up/sign-up.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { UserPanelComponent } from './components/user-panel/user-panel.component';
 
 
 @NgModule({
@@ -19,10 +22,14 @@ import { LogoComponent } from './components/logo/logo.component';
     LoginComponent,
     NavbarComponent,
     RegistrationComponent,
-    LogoComponent
+    LogoComponent,
+    SignUpComponent,
+    UserPanelComponent
   ],
   imports: [
     HttpModule,
+    AngularFontAwesomeModule,
+    CollapseModule,
     BrowserModule,
     FormsModule,
     NgbModule.forRoot(),
@@ -30,7 +37,7 @@ import { LogoComponent } from './components/logo/logo.component';
     RouterModule.forRoot([
       { path: '', component:LoginComponent,pathMatch:'full' },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
-      
+      { path: 'signUp', component: SignUpComponent, pathMatch: 'full' },
     ])
   ],
   providers: [UsersService],

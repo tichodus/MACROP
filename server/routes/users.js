@@ -41,11 +41,27 @@ router.post("/register", (req, res, next) => {
         res.json({ "error": "Bad Data" });
     }
     else {
-        res.json(db.users.insert({
-            "email": user.email,
-            "username": user.username,
-            "password": user.password
-        }));
+        db.users.findOne({
+            $or: [
+                { "username": user.username },
+                { "email": user.email }
+            ]
+        }, (err, userFromDb) => {
+            if (err)
+                res.send(err);
+            else {
+                res.json(userFromDb);
+
+                if (!userFromDb) {
+                    db.users.insert({
+                        "email": user.email,
+                        "username": user.username,
+                        "password": user.password,
+                        "isAdmin": user.isAdmin
+                    });
+                }
+            }
+        });
     }
 });
 
