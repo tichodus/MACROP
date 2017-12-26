@@ -3,3 +3,12 @@
     width:82px;
 }
 
+@media(max-width:480px){
+    .logo{
+        display: none;
+    }
+
+    .btn-xs{
+        padding:1em;
+    }
+}

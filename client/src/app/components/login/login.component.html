@@ -1,14 +1,48 @@
-<div class='container'>
-    <div class='row'>
-        <div class='col-xs-12 col-sm-12 col-md-12'>
-            <form #form='ngForm' class='login-form' (ngSubmit)="login(form)">
-                <div class='form-group'>
-                    <input type='text' class='form-control' name='username' ngModel />
+<div class='login-bg'>
+    <div class='container'>
+        <div class='row col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' align='center'>
+                <div align='center' class='header-text'>
+                    <h1>Macrop</h1>
+                    <h2>Your personal project assistent</h2>
                 </div>
-                <div class='form-group'>
-                    <input type='text' class='form-control' name='password' ngModel />
+            </div>
+            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' style='padding-top:10px;' align='center'>
+                <div align='center' class='header-text'>
+                    <h1>Log In to Macrop</h1>
                 </div>
-            </form>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                <form #form='ngForm' class='login-form' (ngSubmit)="login(form)">
+                    <div align='center' class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                        <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+                            <div class='form-group'>
+                                <label for='username'>Username:</label>
+                                <input type='text' placeholder='Please enter your username...' class='form-control' name='username' ngModel />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div align='center' class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                        <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+                            <div class='form-group'>
+                                    <label for='password'>Password:</label>
+                                <input type='password' placeholder='Please enter your password...'class='form-control' name='password' ngModel />
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div style='padding-bottom:20%;' class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                        <div align='center' class='form-group'>
+                            <input type="submit" style='width:200px;' class='btn btn-lg btn-success' value='Log In' />
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

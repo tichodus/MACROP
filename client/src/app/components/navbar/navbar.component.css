@@ -1,11 +1,26 @@
-.my_navbar{
-    background-color: #0079bf;
+.nav-container{
+    background-color: rgb(3,11,22); 
+    width:100%;
+    top:0;
+    display: inline-flex;
 }
 
-.nav-item {
-    padding-left:1em;
+.inline-flex{
+    display: inline-flex;
 }
 
-.__login-btn{
-
+.btn-container{
+    padding-top:22px;
+    padding-bottom:22px;
 }
+
+@media(max-width:480px){
+    .hidden-xs{
+        display: none;
+    }
+
+    .hidden-xs > button{
+        padding:15px;
+    }
+}
+
