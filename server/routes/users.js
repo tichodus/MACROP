@@ -1,14 +1,20 @@
 const express = require("express");
 const router = express.Router();
-var mongojs = require("mongojs");
-var db = mongojs("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", ["users"]);
+//var mongojs = require("mongojs");
+//var db = mongojs("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", ["users"]);
+const mongoose = require('mongoose');
+const models = require('../schemas and models/data-model.js');
 
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", {
+    useMongoClient: true,
+});
 
 
 router.get("/getAllUsers", (req, res, next) => {
-    db.users.find((err, docs) => {
+    models.users.find((err, docs) => {
         if (err)
-            res.send(err);
+            res.json(err);
         res.json(docs);
     });
 });
@@ -20,9 +26,8 @@ router.post('/login', (req, res, next) => {
     if (!user || typeof user === undefined || !user.password) {
         res.status(400);
         res.json({ "error": "Bad Data" });
-    }
-    else {
-        db.users.findOne({
+    } else {
+        models.users.findOne({
             "username": user.username,
             "password": user.password
         }, (err, user) => {
@@ -39,29 +44,12 @@ router.post("/register", (req, res, next) => {
     if (!user || typeof user === undefined || !user.email || !user.password) {
         res.status(400);
         res.json({ "error": "Bad Data" });
-    }
-    else {
-        db.users.findOne({
-            $or: [
-                { "username": user.username },
-                { "email": user.email }
-            ]
-        }, (err, userFromDb) => {
-            if (err)
-                res.send(err);
-            else {
-                res.json(userFromDb);
-
-                if (!userFromDb) {
-                    db.users.insert({
-                        "email": user.email,
-                        "username": user.username,
-                        "password": user.password,
-                        "isAdmin": user.isAdmin
-                    });
-                }
-            }
-        });
+    } else {
+        res.json(models.users.insert({
+            "email": user.email,
+            "username": user.username,
+            "password": user.password
+        }));
     }
 });
 
