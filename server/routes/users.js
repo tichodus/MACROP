@@ -45,7 +45,7 @@ router.post("/register", (req, res, next) => {
         res.status(400);
         res.json({ "error": "Bad Data" });
     } else {
-        res.json(models.users.insert({
+        res.json(models.users.create({
             "email": user.email,
             "username": user.username,
             "password": user.password

@@ -18,19 +18,6 @@ router.get("/getAllProjects", (req, res, next) => {
     })
 })
 
-router.get("/createProject/:name/:id", (req, res, next) => {
-    let projectName = req.params.name;
-    let ownerName = req.params.id;
-    console.log(req.params);
-    let newProject = new models.projects({ name: projectName, owners: [ownerName] });
-    console.log(newProject);
-    models.projects.create(newProject, (err, project) => {
-        if (err)
-            res.send(err);
-        res.json(project);
-    })
-})
-
 router.get("/getProjects/:id", (req, res, next) => {
     let userId = req.param;
     models.projects.find({ $or: [{ "participians": userId }, { "owner": userId }] }, (err, project) => {
