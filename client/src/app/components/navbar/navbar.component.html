@@ -4,7 +4,7 @@
       <logo></logo>
     </div>
     <!--If user is not logged in -->
-    <div *ngIf='!isLogged' class='col-xs-12 col-sm-10 col-md-8'>
+    <div *ngIf='!_isLogged' class='col-xs-12 col-sm-10 col-md-8'>
       <div class='offset-sm-6 offset-md-9'>
         <div class='btn-container'>
           <button routerLink='/signUp' class='btn-xs btn btn-primary'>Sign Up</button>
@@ -14,7 +14,7 @@
     </div>
 
     <!--If user is logged -->
-    <div *ngIf='isLogged' class='col-xs-12 col-sm-10 col-md-8'>
+    <div *ngIf='_isLogged' class='col-xs-12 col-sm-10 col-md-8'>
         <div class='offset-sm-6 offset-md-9'>
           <div class='btn-container'>
             <button routerLink='/login' class='btn-xs btn btn-danger'>Log Out</button>

@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { User } from '../../models/user';
 import { UsersService } from '../../services/users.service';
+import { UserSession } from '../../services/userSession.service';
+import { Router } from '@angular/router';
+import { EventEmitter } from '@angular/core';
+import { UserSessionSubject } from '../../services/userSessionSubject.service';
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -9,7 +14,8 @@ import { UsersService } from '../../services/users.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private usersService: UsersService) { }
+  showLoginError: boolean = false;
+  constructor(private usersService: UsersService, private router: Router,private userSessionSubject:UserSessionSubject) { }
 
   ngOnInit() {
   }
@@ -20,16 +26,19 @@ export class LoginComponent implements OnInit {
 
     let user: User = new User(username, password);
     this.usersService.login(user).subscribe(res => {
-      if (res && res.json()) {
-        let user = res.json();
-        console.log("User logged "+ user.username+" "+user.email);
+      let isLogged = UserSession.isValidResponse(res);
+      let loggedUser: User = null;
+      if (isLogged)
+        loggedUser = res.json();
+      if (UserSession.validate(loggedUser)) {
+        UserSession.toLocalDataStorage(loggedUser);
+        this.userSessionSubject.update();
+        this.router.navigate(['userPanel']);
       }
-      else
-      console.log("User doesn't exist");
+      else {
+        this.showLoginError = true;
+      }
     });
-    // let user = new User("micko", "micko123", "micko@elfak.rs");
-    // this.usersService.register(user).subscribe(res => {
-    //   console.log(res);
-    // });
   }
+
 }
