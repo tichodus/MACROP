@@ -19,7 +19,7 @@ router.get("/getAllTasks", (req, res, next) => {
 })
 
 router.get("/getProjectTasks/:id", (req, res, next) => {
-    let projectId = req.param;
+    let projectId = req.params.id;
     models.projects.find({ "projectID": projectId }, (err, project) => {
         if (err)
             res.send(err);

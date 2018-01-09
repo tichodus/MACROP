@@ -17,7 +17,7 @@
     <div *ngIf='_isLogged' class='col-xs-12 col-sm-10 col-md-8'>
         <div class='offset-sm-6 offset-md-9'>
           <div class='btn-container'>
-            <button routerLink='/login' class='btn-xs btn btn-danger'>Log Out</button>
+            <button routerLink='/login' (click)='logout()' class='btn-xs btn btn-danger'>Log Out</button>
           </div>
         </div>
       </div>

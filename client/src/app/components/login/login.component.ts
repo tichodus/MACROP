@@ -15,9 +15,11 @@ import { UserSessionSubject } from '../../services/userSessionSubject.service';
 export class LoginComponent implements OnInit {
 
   showLoginError: boolean = false;
-  constructor(private usersService: UsersService, private router: Router,private userSessionSubject:UserSessionSubject) { }
+  constructor(private usersService: UsersService, private router: Router, private userSessionSubject: UserSessionSubject) { }
 
   ngOnInit() {
+    if (UserSession.getUserFromStorage())
+      this.router.navigate(['userPanel']);
   }
 
   login(loginForm: NgForm) {
@@ -40,5 +42,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
+
 
 }

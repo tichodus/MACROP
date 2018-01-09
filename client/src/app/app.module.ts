@@ -15,6 +15,9 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { UserPanelComponent } from './components/user-panel/user-panel.component';
 import { UserSessionSubject } from './services/userSessionSubject.service';
+import { BoardComponent } from './components/board/board.component';
+import { RequestService } from './services/requestService.service';
+import { ProjectService } from './services/project.service';
 
 
 @NgModule({
@@ -25,7 +28,8 @@ import { UserSessionSubject } from './services/userSessionSubject.service';
     RegistrationComponent,
     LogoComponent,
     SignUpComponent,
-    UserPanelComponent
+    UserPanelComponent,
+    BoardComponent
   ],
   imports: [
     HttpModule,
@@ -42,7 +46,7 @@ import { UserSessionSubject } from './services/userSessionSubject.service';
       { path: 'userPanel', component: UserPanelComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [UsersService,UserSessionSubject],
+  providers: [UsersService,UserSessionSubject,RequestService,ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

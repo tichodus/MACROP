@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserSession } from '../../services/userSession.service';
 import { UserSessionSubject } from '../../services/userSessionSubject.service';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
 
   private _isLogged: boolean;
 
-  constructor(private userSessionSubject: UserSessionSubject) {
+  constructor(private userSessionSubject: UserSessionSubject, private router: Router) {
     this.isLogged();
   }
 
@@ -31,4 +32,11 @@ export class NavbarComponent implements OnInit {
     this.userSessionSubject.update();
   }
 
+  logout() {
+    window.localStorage.clear();
+    this.userSessionSubject.update();
+    this._isLogged = false;
+    this.router.navigate(['login']);
+
+  }
 }

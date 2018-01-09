@@ -1,3 +1,7 @@
-<p>
-  user-panel works!
-</p>
+<div *ngIf='projects'>
+  <div class='row'>
+    <div *ngFor='let project of projects' class='col-xs-12 col-sm-6 col-md-3'>
+      <board [id]="project._id"></board>
+    </div>
+  </div>
+</div>
