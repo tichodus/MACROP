@@ -1,0 +1,32 @@
+<div class='container'>
+  <div class='row' (submit)='createProject()'>
+      <div class='col-xs-12 col-sm-12 col-md-12'>
+        <div class='form-group'>
+          <input class='form-control' #projectName name='projectName' />
+        </div>
+      </div>
+
+      <div *ngIf='users' class='col-xs-12 col-sm-12 col-md-12'>
+        <table>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Add user</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr *ngFor='let user of users'>
+              <td>{{user.username}}</td>
+              <td>
+                <button (click)='addParticipant(user)'>
+                  <strong>+</strong>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button (click)='createProject(projectName.value)' class='btn btn-lg btn-success'>Create Project</button>
+  </div>
+</div>

@@ -13,6 +13,8 @@ export class RequestService {
     }
 
     createGetRequestHeader(data: string, action: string) {
+        if (!data || typeof data == 'undefined')
+            data = '';
         let header = new Headers();
         header.append("Content-Type", "application/json");
         return this.http.get("http://localhost:3000/api/" + action + '/' + data, { headers: header });

@@ -1,0 +1,70 @@
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/user';
+import { UsersService } from '../../services/users.service';
+import { UserSession } from '../../services/userSession.service';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { RequestService } from '../../services/requestService.service';
+
+@Component({
+  selector: 'app-new-project-form',
+  templateUrl: './new-project-form.component.html',
+  styleUrls: ['./new-project-form.component.css']
+})
+export class NewProjectFormComponent implements OnInit {
+  loggedUser: User;
+  users: Array<User>;
+  participans: Array<User>;
+  projectName: string;
+  errorFlag: boolean;
+  constructor(private userService: UsersService, private requestService: RequestService) {
+    this.participans = new Array<User>();
+    this.loggedUser = JSON.parse(UserSession.getUserFromStorage());
+    this.errorFlag = false;
+  }
+
+  createProject(name: string) {
+    let projectName = name;
+    if (!projectName || typeof projectName == 'undefined' || projectName == '' || this.participans.length == 0) {
+      this.errorFlag = true;
+      return;
+    }
+    let project = this.createRequestObject(projectName);
+    this.requestService.createPostRequestHeader(JSON.stringify(project), 'createProject').subscribe(res => console.log(res));
+
+  }
+
+  createRequestObject(name: string) {
+    let participans: Array<string> = new Array<string>();
+    this.participans.forEach(participant => participans.push(participant._id));
+    return {
+      ownerId: [this.loggedUser._id],
+      participians: participans,
+      projectName: name
+    }
+  }
+  isUserParticipant(user: User) {
+    let isParticipant: boolean = false;
+    this.participans.forEach(participant => {
+      if (participant._id == user._id)
+        isParticipant = true;
+    });
+    return isParticipant;
+  }
+
+  addParticipant(user) {
+    if (!user || this.isUserParticipant(user))
+      return;
+    this.participans.push(user);
+    console.log(this.participans);
+  }
+  ngOnInit() {
+
+    this.userService.getAllUsers().subscribe(usersAsJson => {
+      if (usersAsJson.json())
+        this.users = usersAsJson.json();
+      this.users = this.users.filter(user => user._id != this.loggedUser._id);
+    })
+
+  }
+
+}

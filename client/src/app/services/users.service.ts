@@ -24,6 +24,9 @@ export class UsersService {
         return this.requestService.createPostRequestHeader(user, 'register');
     }
 
+    getAllUsers(){
+        return this.requestService.createGetRequestHeader(null,'getAllUsers');
+    }
 
 
 }

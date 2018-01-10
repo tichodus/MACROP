@@ -19,6 +19,7 @@ import { BoardComponent } from './components/board/board.component';
 import { RequestService } from './services/requestService.service';
 import { ProjectService } from './services/project.service';
 import { TaskBoardComponent } from './components/task-board/task-board.component';
+import { NewProjectFormComponent } from './components/new-project-form/new-project-form.component';
 
 
 @NgModule({
@@ -32,6 +33,8 @@ import { TaskBoardComponent } from './components/task-board/task-board.component
     UserPanelComponent,
     BoardComponent,
     TaskBoardComponent
+    BoardComponent,
+    NewProjectFormComponent
   ],
   imports: [
     HttpModule,
@@ -45,7 +48,8 @@ import { TaskBoardComponent } from './components/task-board/task-board.component
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'signUp', component: SignUpComponent, pathMatch: 'full' },
-      { path: 'userPanel', component: UserPanelComponent, pathMatch: 'full' }
+      { path: 'userPanel', component: UserPanelComponent, pathMatch: 'full' },
+      { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' }
     ])
   ],
   providers: [UsersService,UserSessionSubject,RequestService,ProjectService],
