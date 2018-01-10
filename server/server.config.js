@@ -1,4 +1,3 @@
-
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
@@ -12,23 +11,24 @@ var task = require("./routes/task");
 var app = express();
 
 
+
 /*
-*VIEW ENGINE CONFIGURATION
-*/
+ *VIEW ENGINE CONFIGURATION
+ */
 
 app.set("views", path.join(__dirname, "view"));
 app.set('view engine', "ejs");
 app.engine('html', require('ejs').renderFile);
 
 /*
-*STATIC ANGULAR FOLDER CONFIGURATION
-*/
+ *STATIC ANGULAR FOLDER CONFIGURATION
+ */
 
 app.use(express.static(path.join(__dirname, "../client")));
 
 /*
-*BODY PARSER MIDDLEWARE CONFIGURATION
-*/
+ *BODY PARSER MIDDLEWARE CONFIGURATION
+ */
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -46,8 +46,10 @@ app.use('/api', chat);
 app.use('/api', project);
 app.use('/api', task);
 /*
-*STARTING SERVER
-*/
+ *STARTING SERVER
+ */
+//var http = require('http').Server(app);
+
 
 app.listen(port, () => {
     console.log("MACROP SERVER STARTED ON PORT " + port);

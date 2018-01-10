@@ -18,6 +18,7 @@ import { UserSessionSubject } from './services/userSessionSubject.service';
 import { BoardComponent } from './components/board/board.component';
 import { RequestService } from './services/requestService.service';
 import { ProjectService } from './services/project.service';
+import { TaskBoardComponent } from './components/task-board/task-board.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ProjectService } from './services/project.service';
     LogoComponent,
     SignUpComponent,
     UserPanelComponent,
-    BoardComponent
+    BoardComponent,
+    TaskBoardComponent
   ],
   imports: [
     HttpModule,
