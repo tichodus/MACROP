@@ -4,6 +4,8 @@ import { UsersService } from '../../services/users.service';
 import { UserSession } from '../../services/userSession.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { RequestService } from '../../services/requestService.service';
+import * as Socket from 'socket.io-client';
+import { ProjectSubscriber } from '../../services/projectSubscriber.service';
 
 @Component({
   selector: 'app-new-project-form',
@@ -16,6 +18,7 @@ export class NewProjectFormComponent implements OnInit {
   participans: Array<User>;
   projectName: string;
   errorFlag: boolean;
+  private socket;
   constructor(private userService: UsersService, private requestService: RequestService) {
     this.participans = new Array<User>();
     this.loggedUser = JSON.parse(UserSession.getUserFromStorage());
@@ -29,7 +32,7 @@ export class NewProjectFormComponent implements OnInit {
       return;
     }
     let project = this.createRequestObject(projectName);
-    this.requestService.createPostRequestHeader(JSON.stringify(project), 'createProject').subscribe(res => console.log(res));
+    this.requestService.createPostRequestHeader(project, 'createProject').subscribe(res => console.log(res));
 
   }
 

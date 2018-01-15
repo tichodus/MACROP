@@ -12,7 +12,6 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { LogoComponent } from './components/logo/logo.component';
 import { CollapseModule } from "ngx-bootstrap";
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { UserPanelComponent } from './components/user-panel/user-panel.component';
 import { UserSessionSubject } from './services/userSessionSubject.service';
 import { BoardComponent } from './components/board/board.component';
@@ -20,6 +19,7 @@ import { RequestService } from './services/requestService.service';
 import { ProjectService } from './services/project.service';
 import { TaskBoardComponent } from './components/task-board/task-board.component';
 import { NewProjectFormComponent } from './components/new-project-form/new-project-form.component';
+import { ProjectSubscriber } from './services/projectSubscriber.service';
 
 
 @NgModule({
@@ -32,13 +32,11 @@ import { NewProjectFormComponent } from './components/new-project-form/new-proje
     SignUpComponent,
     UserPanelComponent,
     BoardComponent,
-    TaskBoardComponent
-    BoardComponent,
+    TaskBoardComponent,
     NewProjectFormComponent
   ],
   imports: [
     HttpModule,
-    AngularFontAwesomeModule,
     CollapseModule,
     BrowserModule,
     FormsModule,
@@ -52,7 +50,9 @@ import { NewProjectFormComponent } from './components/new-project-form/new-proje
       { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [UsersService,UserSessionSubject,RequestService,ProjectService],
+  providers: [UsersService,ProjectSubscriber,UserSessionSubject,RequestService,ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

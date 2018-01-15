@@ -1,3 +1,4 @@
+
 const express = require("express");
 const router = express.Router();
 //var mongojs = require("mongojs");
@@ -5,16 +6,26 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const models = require('../schemas and models/data-model.js');
 
+var http = require("http").Server(router);
+var io = require('../sockets/io');
+
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", {
     useMongoClient: true,
 });
+
+
+var app = express();
+
+
+
 
 router.get("/getAllProjects", (req, res, next) => {
     models.projects.find((err, project) => {
         if (err)
             res.send(err);
         res.json(project);
+        io.emit("customEvent", null);
     })
 })
 
@@ -38,16 +49,21 @@ router.get("/getProject/:id", (req, res, next) => {
     })
 })
 
+
 router.post("/createProject", (req, res, next) => {
+    console.log(req.body);
     let ownerId = req.body.ownerId;
     let participians = req.body.participians;
     let projectName = req.body.projectName;
-    models.projects.create({ name: projectName, ownerId: ownerID, participians: participians }, (err, proj) => {
+    models.projects.create({ name: projectName, owners: ownerId, participians: participians }, (err, proj) => {
         if (err)
             res.send(err);
-        else
+        else {
             res.send(proj);
-    })
+            io.sockets.emit('projectCreated',proj);
+        }
+    });
+
 })
 
 router.put("/addToProject", (request, response) => {
@@ -69,6 +85,5 @@ router.put("/addToProject", (request, response) => {
         });
     });
 });
-
 
 module.exports = router;

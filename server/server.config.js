@@ -10,8 +10,9 @@ var project = require("./routes/project");
 var task = require("./routes/task");
 var app = express();
 
+var io = require('./sockets/io');
 
-
+connections = [];
 /*
  *VIEW ENGINE CONFIGURATION
  */
@@ -51,6 +52,10 @@ app.use('/api', task);
 //var http = require('http').Server(app);
 
 
-app.listen(port, () => {
+var server = app.listen(port, () => {
     console.log("MACROP SERVER STARTED ON PORT " + port);
-})
+});
+
+//Socket setup
+io.attach(server);
+

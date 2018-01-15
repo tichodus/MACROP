@@ -28,12 +28,10 @@ export class BoardComponent implements OnInit {
   getProject() {
     this.projectService.getProjectById(this.id).subscribe(res => {
       this.project = res.json();
-      console.log(this.project);
     });
   }
   isUserOwner() {
     let user: User = JSON.parse(UserSession.getUserFromStorage());
-    console.log(user._id);
     let isOwner: boolean = false;
     this.project.owners.forEach(owner => {
       if (owner == user._id)
