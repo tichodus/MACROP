@@ -20,7 +20,7 @@ import { ProjectService } from './services/project.service';
 import { TaskBoardComponent } from './components/task-board/task-board.component';
 import { NewProjectFormComponent } from './components/new-project-form/new-project-form.component';
 import { ProjectSubscriber } from './services/projectSubscriber.service';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { ProjectSubscriber } from './services/projectSubscriber.service';
     NewProjectFormComponent
   ],
   imports: [
+    NgxPaginationModule,
     HttpModule,
     CollapseModule,
     BrowserModule,
@@ -50,7 +51,7 @@ import { ProjectSubscriber } from './services/projectSubscriber.service';
       { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [UsersService,ProjectSubscriber,UserSessionSubject,RequestService,ProjectService],
+  providers: [UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

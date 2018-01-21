@@ -1,0 +1,21 @@
+.panel-body{
+    background-image: url("/assets/panelBg.jpg");
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.panel-container{
+   margin-left:20px;
+   margin-right:20px;
+}
+.paginator{
+    background-position: bottom;
+}
+
+@media(max-width:768px){
+    .panel-body{
+        height: 100%;
+        width:100%;
+    }
+}

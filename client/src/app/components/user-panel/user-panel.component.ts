@@ -6,11 +6,12 @@ import { ProjectService } from '../../services/project.service';
 import { ProjectSubscriber } from '../../services/projectSubscriber.service';
 
 @Component({
-  selector: 'app-user-panel',
+  selector: 'user-panel',
   templateUrl: './user-panel.component.html',
   styleUrls: ['./user-panel.component.css']
 })
 export class UserPanelComponent implements OnInit {
+  page:number = 1;
   user: User;
   projects: Array<Project>;
   constructor(private projectSubscriber: ProjectSubscriber, private projectService: ProjectService) {

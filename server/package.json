@@ -17,5 +17,8 @@
     "mongojs": "^2.4.1",
     "mongoose": "^4.13.8",
     "socket.io": "^2.0.4"
+  },
+  "scripts":{
+    "start": "node server.config.js"
   }
 }

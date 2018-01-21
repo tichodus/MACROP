@@ -1,6 +1,9 @@
 .board-container{
-    margin:1em;
-    margin-right: 0;
+    margin-top:20px;
     color:white;
     background-image:url("https://trello-backgrounds.s3.amazonaws.com/SharedBackground/480x480/b1d9cfcae6827d969fc70947689e0b20/photo-1508234562163-534667a7e3ea.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
+

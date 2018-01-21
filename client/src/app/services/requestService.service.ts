@@ -4,12 +4,19 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class RequestService {
 
-    constructor(private http: Http) { }
+    private _server:string;
+    private _localServer:string;
+    private _deployedServer:string;
+    constructor(private http: Http) {
+        this._localServer = 'http://localhost:3000/api/';
+        this._deployedServer = 'https://macrop.herokuapp.com/api/';
+        this._server = this._localServer;
+     }
 
     createPostRequestHeader(data: any, action: string) {
         let header = new Headers();
         header.append("Content-Type", "application/json");
-        return this.http.post("http://localhost:3000/api/" + action, JSON.stringify(data), { headers: header });
+        return this.http.post(this._server + action, JSON.stringify(data), { headers: header });
     }
 
     createGetRequestHeader(data: string, action: string) {
@@ -17,6 +24,6 @@ export class RequestService {
             data = '';
         let header = new Headers();
         header.append("Content-Type", "application/json");
-        return this.http.get("http://localhost:3000/api/" + action + '/' + data, { headers: header });
+        return this.http.get(this._server + action + '/' + data, { headers: header });
     }
 }

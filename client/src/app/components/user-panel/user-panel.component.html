@@ -1,7 +1,14 @@
-<div *ngIf='projects'>
-  <div class='row'>
-    <div *ngFor='let project of projects' class='col-xs-12 col-sm-6 col-md-3'>
-      <board [id]="project._id"></board>
+<div class='panel-body'>
+  <div class='panel-container'>
+    <div *ngIf='projects'>
+      <div class='row'>
+        <div *ngFor='let project of projects | paginate: {itemsPerPage:9,currentPage:page}' class='col-xs-12 col-sm-6 col-md-3 col-lg-4'>
+          <board [id]="project._id"></board>
+        </div>
+        <div class='paginator col-xs-12 col-sm-12 col-md-12'>
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
     </div>
   </div>
 </div>
