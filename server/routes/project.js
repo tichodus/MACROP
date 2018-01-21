@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 //var mongojs = require("mongojs");
@@ -60,7 +59,7 @@ router.post("/createProject", (req, res, next) => {
             res.send(err);
         else {
             res.send(proj);
-            io.sockets.emit('projectCreated',proj);
+            io.sockets.emit('projectCreated', proj);
         }
     });
 

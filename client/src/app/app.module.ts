@@ -21,6 +21,7 @@ import { TaskBoardComponent } from './components/task-board/task-board.component
 import { NewProjectFormComponent } from './components/new-project-form/new-project-form.component';
 import { ProjectSubscriber } from './services/projectSubscriber.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProjectPanelComponent } from './components/project-panel/project-panel.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UserPanelComponent,
     BoardComponent,
     TaskBoardComponent,
-    NewProjectFormComponent
+    NewProjectFormComponent,
+    ProjectPanelComponent
   ],
   imports: [
     NgxPaginationModule,

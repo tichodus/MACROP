@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as Socket from 'socket.io-client';
 import { ProjectSubscriber } from './services/projectSubscriber.service';
+import { ChatSubscriber} from './services/chat.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,13 @@ import { ProjectSubscriber } from './services/projectSubscriber.service';
 })
 export class AppComponent {
   private socket;
-  constructor(private projectSubscriber: ProjectSubscriber) {
-    this.socket = Socket('http://localhost:3000');
+  constructor(private projectSubscriber: ProjectSubscriber, private chatSubscriber: ChatSubscriber) {
+    this.socket = Socket('http://macrop.herokuapp.com/');
     this.socket.on('projectCreated', (data) => {
       this.projectSubscriber.update(data);
+    });
+    this.socket.on('chatMessage', (data) => {
+      this.chatSubscriber.update(data);
     });
   }
 }
