@@ -22,6 +22,7 @@ import { NewProjectFormComponent } from './components/new-project-form/new-proje
 import { ProjectSubscriber } from './services/projectSubscriber.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProjectPanelComponent } from './components/project-panel/project-panel.component';
+import { ChatSubscriber } from './services/chat.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { ProjectPanelComponent } from './components/project-panel/project-panel.
       { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService],
+  providers: [UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

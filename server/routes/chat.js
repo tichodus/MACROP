@@ -31,6 +31,18 @@ router.get("/getChat/:id", (req, res, next) => {
     });
 });
 
+router.get("/getUserChats/:id", (req, res, next) => {
+    let userId = req.param.id;
+    models.chat.find({ "participians": userId }, (err, chats) => {
+        if (err)
+            res.send(err);
+        else
+            res.send(chats);
+    });
+});
+
+//router.post("/getUserChatsWithUser/:object", ())
+
 // router.get("/getChat/:id", (req, res, next) => {
 //     let id = req.params['id'];
 //     models.chats.find({ "participians": id }, function(err, docs) {

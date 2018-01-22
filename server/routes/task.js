@@ -20,11 +20,25 @@ router.get("/getAllTasks", (req, res, next) => {
 
 router.get("/getProjectTasks/:id", (req, res, next) => {
     let projectId = req.params.id;
-    models.projects.find({ "projectID": projectId }, (err, project) => {
+    models.projects.findById(projectId, (err, project) => {
         if (err)
             res.send(err);
-        res.json(project);
-    })
-})
+        else {
+            var taskArray = new Array();
+            project.tasks.forEach(element => {
+                taskArray.push(models.tasks.findById(element, (err, task) => {
+                    if (err)
+                        return;
+                    else {
+                        return task;
+                    }
+                }).then());
+            });
+            Promise.all(taskArray).then(taskArray => {
+                res.json(taskArray);
+            });
+        }
+    });
+});
 
-module.exports = router;
+module.exports = router

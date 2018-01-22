@@ -53,4 +53,13 @@ router.post("/register", (req, res, next) => {
     }
 });
 
+router.get("/getUser/:id", (req, res, next) => {
+    let userId = req.params.id;
+    models.users.findById(userId, (err, user) => {
+        if (err)
+            res.json(err);
+        res.json(user);
+    });
+});
+
 module.exports = router;

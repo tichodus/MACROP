@@ -1,20 +1,23 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs/Subject";
-import { EventListener } from "@angular/core/src/debug/debug_node";
-import { EventSource } from 'eventsource'
-import * as Socket from 'socket.io-client';
+import { RequestService } from "./requestService.service";
 
 @Injectable()
-export class ChatSubscriber {
-    chatSubscriber: Subject<any>;
+export class ChatService {
+    constructor(private requestService: RequestService) { }
 
-    constructor() {
-        this.chatSubscriber = new Subject<any>();
-
-
+    getUserByUserId(userID: string) {
+        return this.requestService.createGetRequestHeader(userID, 'getUser');
     }
 
-    update(data) {
-        this.chatSubscriber.next(data);
+    getChatByUserId(userID: string) {
+        return this.requestService.createGetRequestHeader(userID, 'getUserChats');
+    }
+
+    getChatByForUserId(userID: string, otherUserId: string) {
+        let obj = {
+            "userID": userID,
+            "otherUserId": otherUserId
+        };
+        return this.requestService.createPostRequestHeader(JSON.stringify(obj), 'getUserChatsWithUser');
     }
 }
