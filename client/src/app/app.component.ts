@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import * as Socket from 'socket.io-client';
 import { ProjectSubscriber } from './services/projectSubscriber.service';
-import { ChatSubscriber} from './services/chat.service';
+import { ChatSubscriber } from './services/chatSubscriber.service';
 
 @Component({
   selector: 'app-root',

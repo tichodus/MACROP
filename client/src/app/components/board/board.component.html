@@ -1,13 +1,13 @@
-<div *ngIf='project' class="container card board-container" >
-  <div class='container'>
-    <div style='padding:1em;'class="card-block">
-      <h4 class="card-title">{{project.name}}</h4>
-      <p class="card-text">Number of participans: {{project.participians.length + project.owners.length}}</p>
-      <label *ngIf="isUserOwner()" class='alert alert-success'>User status: <strong>Owner</strong></label>
-      <label *ngIf="!isUserOwner()" class='alert alert-info'>User status:
+<div *ngIf='project' class="container card board-container">
+    <div class='container'>
+        <div style='padding:1em;' class="card-block">
+            <h4 class="card-title">{{project.name}}</h4>
+            <p class="card-text">Number of participans: {{project.participians.length + project.owners.length}}</p>
+            <label *ngIf="isUserOwner()" class='alert alert-success'>User status: <strong>Owner</strong></label>
+            <label *ngIf="!isUserOwner()" class='alert alert-info'>User status:
         <strong>Participant</strong>
       </label>
-      <a href="#" class="btn btn-primary">Open project</a>
+            <project-panel></project-panel>
+        </div>
     </div>
-  </div>
 </div>
