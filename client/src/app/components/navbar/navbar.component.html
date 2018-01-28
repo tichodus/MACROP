@@ -22,5 +22,13 @@
         </div>
       </div>
     </div>
+    <!-- If Project is opened -->
+    <div *ngIf='_isProjectOpened' class='col-xs-12 col-sm-10 col-md-8'>
+      <div class='offset-sm-6 offset-md-9'>
+        <div class='btn-container'>
+          <button routerLink='/newProject' class='btn-xs btn btn-success'>New Task</button>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>

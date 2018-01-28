@@ -3,6 +3,7 @@ import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import { UserSession } from '../../services/userSession.service';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'board',
@@ -11,11 +12,13 @@ import { User } from '../../models/user';
 })
 export class BoardComponent implements OnInit {
   @Input() id: string;
-  _picture: string;
-  _numberOfTasks: number;
-  _isClicked: boolean;
-  project: Project;
-  constructor(private projectService: ProjectService) {
+  private  _picture: string;
+  private _numberOfTasks: number;
+  private _isClicked: boolean;
+  private _project: Project;
+  private _userID: string;
+  constructor(private projectService: ProjectService, private router: Router) {
+    this._userID = JSON.parse(UserSession.getUserFromStorage())._id;
     this._picture = '';
     this._numberOfTasks = 0;
     this._isClicked = false;
@@ -27,18 +30,22 @@ export class BoardComponent implements OnInit {
 
   getProject() {
     this.projectService.getProjectById(this.id).subscribe(res => {
-      this.project = res.json();
+      this._project = res.json();
     });
   }
   isUserOwner() {
     let user: User = JSON.parse(UserSession.getUserFromStorage());
     let isOwner: boolean = false;
-    this.project.owners.forEach(owner => {
+    this._project.owners.forEach(owner => {
       if (owner == user._id)
         isOwner = true;
     });
     return isOwner;
   }
 
+  openProject() {
+
+    this.router.navigate(['/taskBoard', this.id], { queryParams: { userID: this._userID, isUserProjectOwner: this.isUserOwner() } });
+  }
 
 }

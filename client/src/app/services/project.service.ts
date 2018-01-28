@@ -12,4 +12,8 @@ export class ProjectService {
     getProjectById(projectID: string) {
         return this.requestService.createGetRequestHeader(projectID, 'getProject');
     }
+
+    getProjectTasks(projectID: string) {
+         return this.requestService.createGetRequestHeader(projectID, 'getProjectTasks');
+    }
 }

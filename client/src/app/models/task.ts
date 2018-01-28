@@ -6,9 +6,9 @@ export class Task {
     name: string;
     body: string;
     projectID: string;
-    responsible: Array<User>;
+    responsible: Array<string>;
 
-    constructor(id: string, name: string, body: string, projectID: string, responsible: Array<User>) {
+    constructor(id: string, name: string, body: string, projectID: string, responsible: Array<string>) {
         this._id = id;
         this.name = name;
         this.body = body;

@@ -1,3 +1,7 @@
-<p>
-  task-board works!
-</p>
+<div class='task-panel'>
+  <div class='container'>
+    <div *ngFor='let task of tasks'>
+      {{task.name}}
+    </div>
+  </div>
+</div>

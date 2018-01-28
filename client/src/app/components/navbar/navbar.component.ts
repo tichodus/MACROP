@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserSession } from '../../services/userSession.service';
 import { UserSessionSubject } from '../../services/userSessionSubject.service';
 import { User } from '../../models/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -13,8 +13,9 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   private _isLogged: boolean;
-
-  constructor(private userSessionSubject: UserSessionSubject, private router: Router) {
+  private _isProjectOpened: boolean;
+  constructor(private userSessionSubject: UserSessionSubject, private router: Router, private activatedRoute: ActivatedRoute) {
+    this._isProjectOpened = false;
     this.isLogged();
   }
 
