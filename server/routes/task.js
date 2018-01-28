@@ -41,4 +41,26 @@ router.get("/getProjectTasks/:id", (req, res, next) => {
     });
 });
 
+router.get("/deleteTask/:id", (req, res, next) => {
+    let taskId = req.params.id;
+    models.tasks.findByIdAndRemove(taskId, (err, task) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        models.projects.find({ "tasks": taskId }, (erro, project) => {
+            if (erro) {
+                res.send(erro);
+                return;
+            }
+            let array = new Array();
+            array = project.tasks;
+            let index = array.findIndex(task => task == taskId);
+            array.splice(index, 1);
+            project.tasks = array;
+            project.save();
+        });
+    });
+});
+
 module.exports = router

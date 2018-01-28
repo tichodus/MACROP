@@ -11,7 +11,7 @@ let usersSchema = mongoose.Schema({
 
 let tasksSchema = mongoose.Schema({
     name: String,
-    body: String,
+    body: [],
     projectID: String,
     responsible: []
 });
