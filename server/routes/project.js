@@ -50,7 +50,6 @@ router.get("/getProject/:id", (req, res, next) => {
 
 
 router.post("/createProject", (req, res, next) => {
-    console.log(req.body);
     let ownerId = req.body.ownerId;
     let participians = req.body.participians;
     let projectName = req.body.projectName;

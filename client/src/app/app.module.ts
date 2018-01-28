@@ -25,7 +25,6 @@ import { ProjectPanelComponent } from './components/project-panel/project-panel.
 import { ChatSubscriber } from './services/chatSubscriber.service';
 import { ChatService } from './services/chat.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,8 +51,7 @@ import { ChatService } from './services/chat.service';
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'signUp', component: SignUpComponent, pathMatch: 'full' },
-      { path: 'userPanel', component: UserPanelComponent,pathMatch:'full' },
-      { path: 'taskBoard/:id', component: TaskBoardComponent,pathMatch:'full' },
+      { path: 'userPanel', component: UserPanelComponent, pathMatch: 'full' },
       { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' }
     ])
   ],

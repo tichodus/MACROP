@@ -54,13 +54,49 @@ router.get("/deleteTask/:id", (req, res, next) => {
                 return;
             }
             let array = new Array();
-            array = project.tasks;
-            let index = array.findIndex(task => task == taskId);
-            array.splice(index, 1);
-            project.tasks = array;
-            project.save();
+            project.forEach(proje => {
+                array = proje.tasks;
+                let index = array.findIndex(task => task == taskId);
+                array.splice(index, 1);
+                proje.tasks = array;
+                proje.save();
+            });
+
         });
     });
 });
 
-module.exports = router
+router.post("/updateTask", (req, res, next) => {
+    console.log(req.body);
+    let taskId = req.body._id;
+    let name = req.body.name;
+    let completness = req.body.completness;
+    models.tasks.findById(taskId, (erro, task) => {
+        if (erro) {
+            res.send(erro);
+            return;
+        }
+        task.name = name;
+        task.completness = completness;
+        task.save();
+    });
+});
+
+router.put("/createTask", (req, res, next) => {
+    let name = req.body.name;
+    let projectId = req.body.projectId;
+    let responsible = req.body.responsible;
+    let completness = "paused";
+    models.tasks.create({ name: name, projectID: projectId, completness: completness, responsible: responsible },
+        (erro, task) => {
+            if (erro)
+                res.send(erro);
+            models.projects.findById(projectId, (err, project) => {
+                project.tasks.push(task.id);
+                project.save();
+            });
+            res.json(task);
+        });
+});
+
+module.exports = router;
