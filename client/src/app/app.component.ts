@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as Socket from 'socket.io-client';
 import { ProjectSubscriber } from './services/projectSubscriber.service';
 import { ChatSubscriber } from './services/chatSubscriber.service';
+import { TaskSubscriber } from './services/taskSubscriber.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { ChatSubscriber } from './services/chatSubscriber.service';
 })
 export class AppComponent {
   private socket;
-  constructor(private projectSubscriber: ProjectSubscriber, private chatSubscriber: ChatSubscriber) {
+  constructor(private taskSubscriber:TaskSubscriber, private projectSubscriber: ProjectSubscriber, private chatSubscriber: ChatSubscriber) {
     this.socket = Socket('http://macrop.herokuapp.com/');
     this.socket.on('projectCreated', (data) => {
       this.projectSubscriber.update(data);
@@ -19,5 +20,9 @@ export class AppComponent {
     this.socket.on('chatMessage', (data) => {
       this.chatSubscriber.update(data);
     });
+
+    this.socket.on('taskUpdated', (data)=>{
+      this.taskSubscriber.update(data);
+    })
   }
 }

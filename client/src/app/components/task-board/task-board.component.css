@@ -3,8 +3,55 @@
     width:100%;
     height:100vh;
     overflow: hidden;
+    overflow-y: auto;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-   
+    color:white;
+}
+.task-card{
+    background: transparent;
+    background-color: #e2e4e6;
+    border-radius:25px;
+    padding:10px;
+}
+.card-header{
+    width:100%;
+    height:50px;
+    color:#333;
+    font-weight: 600;
+    text-align: center;
+    font-size: 22px;
+}
+.card-body{
+ color:#333;
+ text-align: center;
+ background-color: #eef0f1;
+ width:100%;
+ padding:0;
+ padding-bottom:20px;
+}
+.buttons-container{
+    float:right;
+    padding-right: 5px;
+
+}
+
+.buttons-container > button{
+    border-radius: 15px;
+    line-height: 1.42;
+    padding:6px 0;
+    width:15px;
+    height: 15px;
+}
+
+.paused{
+    background-color: #f16666;
+}
+.working{
+    background-color: #e7c14e;
+}
+
+.finished{
+    background-color:#4ef074;
 }

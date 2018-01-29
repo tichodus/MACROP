@@ -4,6 +4,7 @@ const router = express.Router();
 //var db = mongojs("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", ["users"]);
 const mongoose = require('mongoose');
 const models = require('../schemas and models/data-model.js');
+var io = require('../sockets/io');
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", {
@@ -79,6 +80,7 @@ router.post("/updateTask", (req, res, next) => {
         task.name = name;
         task.completness = completness;
         task.save();
+        io.sockets.emit('taskUpdated',task);
     });
 });
 

@@ -24,6 +24,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ProjectPanelComponent } from './components/project-panel/project-panel.component';
 import { ChatSubscriber } from './services/chatSubscriber.service';
 import { ChatService } from './services/chat.service';
+import { TaskService } from './services/task.services';
 
 @NgModule({
   declarations: [
@@ -52,10 +53,11 @@ import { ChatService } from './services/chat.service';
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'signUp', component: SignUpComponent, pathMatch: 'full' },
       { path: 'userPanel', component: UserPanelComponent, pathMatch: 'full' },
-      { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' }
+      { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' },
+      { path: 'taskBoard/:id', component: TaskBoardComponent,pathMatch:'full' }, 
     ])
   ],
-  providers: [UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
+  providers: [TaskService,UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

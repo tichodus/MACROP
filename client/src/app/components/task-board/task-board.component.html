@@ -1,7 +1,51 @@
 <div class='task-panel'>
-  <div class='container'>
-    <div *ngFor='let task of tasks'>
-      {{task.name}}
+  <div class='row'>
+    <div class='col-xs-12 col-sm-2 col-md-2'>
+      <div class='task-card'>
+        <div *ngIf='_tasks'>
+          <div *ngFor='let task of _tasks'>
+            <div class='card-header'>{{task.name}}</div>
+            <div *ngFor='let subTask of task.body'>
+
+              <div id='card-body' *ngIf="task.completness=='paused'" class='card-body paused'>
+                <div class='buttons-container'>
+                  <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
+                  <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
+                  <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+                </div>
+                <br/>
+                <div class='card-content'>
+                  <span>{{subTask}}</span>
+                </div>
+              </div>
+
+              <div id='card-body' *ngIf="task.completness=='working'" class='card-body working'>
+                  <div class='buttons-container'>
+                    <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
+                    <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
+                    <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+                  </div>
+                  <br/>
+                  <div class='card-content'>
+                    <span>{{subTask}}</span>
+                  </div>
+                </div>
+
+                <div id='card-body' *ngIf="task.completness=='finished'" class='card-body finished'>
+                    <div class='buttons-container'>
+                      <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
+                      <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
+                      <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+                    </div>
+                    <br/>
+                    <div class='card-content'>
+                      <span>{{subTask}}</span>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
