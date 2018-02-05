@@ -25,6 +25,7 @@ import { ProjectPanelComponent } from './components/project-panel/project-panel.
 import { ChatSubscriber } from './services/chatSubscriber.service';
 import { ChatService } from './services/chat.service';
 import { TaskService } from './services/task.services';
+import { TaskSubscriber } from './services/taskSubscriber.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { TaskService } from './services/task.services';
       { path: 'taskBoard/:id', component: TaskBoardComponent,pathMatch:'full' }, 
     ])
   ],
-  providers: [TaskService,UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
+  providers: [TaskSubscriber,TaskService,UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

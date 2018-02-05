@@ -17,7 +17,8 @@ export class TaskBoardComponent implements OnInit {
   private _projectId: string;
   private _tasks: Array<Task>;
   constructor(private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService) {
-    this.taskSubscriber.taskSubscriber.subscribe(task => {
+    this.taskSubscriber.taskSubscriber.subscribe((task: Task) => {
+      console.log(task);
       let alreadyExists = false;
       this._tasks.forEach(_task => {
         if (task._id == _task._id)
@@ -25,8 +26,8 @@ export class TaskBoardComponent implements OnInit {
       });
 
       if (alreadyExists) {
-        let taskRef = this._tasks.find(_task => task._id == _task._id);
-        taskRef = task;
+        let taskIndex = this._tasks.findIndex(_task => task._id == _task._id);
+        this._tasks.splice(taskIndex, 1, task);
       }
       else
         this._tasks.push(task);
@@ -45,7 +46,7 @@ export class TaskBoardComponent implements OnInit {
 
       this.projectService.getProjectTasks(this._projectId).subscribe(tasks => {
         this._tasks = tasks.json();
-
+        console.log(this._tasks);
         // filter tasks so array should consists only from tasks for the specified user
         this._tasks = this._tasks.filter((task: Task) => task.responsible.includes(this._userID));
         console.log(this._tasks);
