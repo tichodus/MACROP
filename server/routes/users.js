@@ -62,4 +62,45 @@ router.get("/getUser/:id", (req, res, next) => {
     });
 });
 
+router.delete("/deleteUser/:id", (req, res, next) => {
+    let userId = req.params.id;
+    models.users.findByIdAndRemove(userId, (err, user) => {
+        if (err)
+            res.send(err);
+        res.json(user);
+        models.projects.find({ "participians": userId }, (erro, project) => {
+            if (erro) {
+                res.send(erro);
+                return;
+            }
+            let array = new Array();
+            project.forEach(proje => {
+                array = proje.participians;
+                let index = array.findIndex(user => user == userId);
+                array.splice(index, 1);
+                proje.participians = array;
+                proje.save();
+            });
+        });
+        models.tasks.find({ "responsible": userId }, (erro, task) => {
+            if (erro) {
+                res.send(erro);
+                return;
+            }
+            let array = new Array();
+            task.forEach(tas => {
+                array = tas.responsible;
+                let index = array.findIndex(user => user == userId);
+                array.splice(index, 1);
+                tas.responsible = array;
+                tas.save();
+            });
+        });
+        models.messages.remove({ "authro": userId }, (err, messag) => {
+            if (err)
+                res.send(err);
+        });
+    });
+});
+
 module.exports = router;

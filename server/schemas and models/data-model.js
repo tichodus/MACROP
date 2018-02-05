@@ -25,7 +25,7 @@ let projectSchema = mongoose.Schema({
 });
 
 let chatSchema = mongoose.Schema({
-    participians: []
+    projectID: String
 });
 
 let messageSchema = mongoose.Schema({
