@@ -64,7 +64,7 @@ router.post("/createProject", (req, res, next) => {
 
 })
 
-router.put("/addToProject", (request, response) => {
+router.put("/addUserToProject", (request, response) => { //izmenio sam, Stefi da promeni
     console.log(request.body);
     let userId = request.body.userId;
     let projectId = request.body.projectId;
@@ -82,6 +82,19 @@ router.put("/addToProject", (request, response) => {
             response.send(updatedProject);
         });
     });
+});
+
+router.put("/addTaskToProject", (req, res, next) => {
+    console.log(req.body);
+    let projectId = req.body.projectId;
+    let taskId = req.body.taskId;
+    models.projects.findById(projectId, (err, proj) => {
+        if (err)
+            res.send(err);
+        proj.tasks.push(taskId);
+        proj.save();
+        res.json(proj);
+    })
 });
 
 module.exports = router;

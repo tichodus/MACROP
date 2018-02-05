@@ -42,7 +42,7 @@ router.get("/getProjectTasks/:id", (req, res, next) => {
     });
 });
 
-router.get("/deleteTask/:id", (req, res, next) => {
+router.delete("/deleteTask/:id", (req, res, next) => {
     let taskId = req.params.id;
     models.tasks.findByIdAndRemove(taskId, (err, task) => {
         if (err) {
@@ -67,7 +67,7 @@ router.get("/deleteTask/:id", (req, res, next) => {
     });
 });
 
-router.post("/updateTask", (req, res, next) => {
+router.put("/updateTask", (req, res, next) => {
     console.log(req.body);
     let taskId = req.body._id;
     let name = req.body.name;
@@ -80,11 +80,11 @@ router.post("/updateTask", (req, res, next) => {
         task.name = name;
         task.completness = completness;
         task.save();
-        io.sockets.emit('taskUpdated',task);
+        io.sockets.emit('taskUpdated', task);
     });
 });
 
-router.put("/createTask", (req, res, next) => {
+router.post("/createTask", (req, res, next) => {
     let name = req.body.name;
     let projectId = req.body.projectId;
     let responsible = req.body.responsible;
