@@ -8,6 +8,7 @@ var users = require("./routes/users");
 var chat = require("./routes/chat");
 var project = require("./routes/project");
 var task = require("./routes/task");
+var message = require("./routes/message");
 var app = express();
 
 var io = require('./sockets/io');
@@ -46,6 +47,7 @@ app.use('/api', users);
 app.use('/api', chat);
 app.use('/api', project);
 app.use('/api', task);
+app.use('/api', message);
 /*
  *STARTING SERVER
  */
@@ -58,4 +60,3 @@ var server = app.listen(port, () => {
 
 //Socket setup
 io.attach(server);
-
