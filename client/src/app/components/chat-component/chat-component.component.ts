@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Chat } from '../../models/chat';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../services/project.service';
@@ -14,6 +14,8 @@ import { ChatSubscriber } from '../../services/chatSubscriber.service';
   styleUrls: ['./chat-component.component.css']
 })
 export class ChatComponentComponent implements OnInit {
+  @ViewChild('chatDiv') chatDiv: ElementRef;
+
   private _isCollapsed: boolean;
   private _project: Project;
   private _messages: Array<Message>;
@@ -26,6 +28,13 @@ export class ChatComponentComponent implements OnInit {
       this._messages.push(message);
     })
 
+  }
+
+
+  ngAfterViewChecked() {
+    console.log(this.chatDiv);
+    if (this.chatDiv)
+      this._updateScroll(this.chatDiv.nativeElement);
   }
 
   ngOnInit() {
@@ -46,9 +55,14 @@ export class ChatComponentComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(res => {
       this._userID = res.userID;
-    })
+    });
+
   }
 
+  private _updateScroll(div: HTMLElement) {
+    if (div)
+      div.scrollTop = div.scrollHeight;
+  }
   chatCollapse() {
     this._isCollapsed = true;
   }
