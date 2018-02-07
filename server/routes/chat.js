@@ -10,7 +10,7 @@ mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop",
     useMongoClient: true,
 });
 
-router.get("/getChat/:id", (req, res, next) => {
+router.get("/getChatMessages/:id", (req, res, next) => {
     let projectId = req.params['id'];
     models.chats.findOne({ "projectID": projectId }, (err, chat) => {
         if (err)
@@ -24,8 +24,17 @@ router.get("/getChat/:id", (req, res, next) => {
                     res.json(messages);
                     //messages.forEach((message) => console.log(message.text));
                 }
-            })
+            });
         }
+    });
+});
+
+router.get("/getChat/:id", (req, res, next) => {
+    let projectId = req.params['id'];
+    models.chats.findById(projectId, (err, proj) => {
+        if (err)
+            res.send(err);
+        res.json(proj);
     });
 });
 
