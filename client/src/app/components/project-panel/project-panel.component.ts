@@ -19,17 +19,6 @@ export class ProjectPanelComponent implements OnInit {
     this.user = <User>JSON.parse(UserSession.getUserFromStorage());
   }
 
-  Func(){
-    let otherId;
-    this.chatService.getUserByUserId("5a2369ba959c240d0cd18037").subscribe(result => {
-      otherId = result.json();
-      console.log(otherId);
-    });
-    //let objects = this.chatService.getChatByForUserId(this.user._id, otherId._id).subscribe(res => {
-      //console.log(res.json());
-    //});
-    
-  }
 
   ngOnInit() {
   }

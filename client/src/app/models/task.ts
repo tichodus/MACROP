@@ -8,6 +8,7 @@ export class Task {
     projectID: string;
     responsible: Array<string>;
     completness: string;
+    
     constructor(id: string, name: string, body: Array<string>, projectID: string, responsible: Array<string>,completness:string) {
         this._id = id;
         this.name = name;

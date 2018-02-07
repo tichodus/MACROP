@@ -1,10 +1,10 @@
 
 export class Chat {
     _id: string;
-    participians: Array<string>;
-    
-    constructor(id: string, participians: Array<string>) {
+    projectID: string;
+
+    constructor(id: string, projectID: string) {
         this._id = id;
-        this.participians = participians;
+        this.projectID = projectID;
     }
 }

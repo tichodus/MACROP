@@ -5,6 +5,7 @@ export class User {
     username: String;
     password: String;
     isAdmin:boolean;
+    
     constructor(username: String, password: String,email?:String,isAdmin?:boolean,id?:string) {
         if (!username || !password || typeof username === 'undefined' || typeof password === 'undefined') throw Error("Invalid values for username or password");
         this.username = username;

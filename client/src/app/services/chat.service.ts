@@ -5,19 +5,8 @@ import { RequestService } from "./requestService.service";
 export class ChatService {
     constructor(private requestService: RequestService) { }
 
-    getUserByUserId(userID: string) {
-        return this.requestService.createGetRequestHeader(userID, 'getUser');
+    getMessagesForProject(projectID: string) {
+        return this.requestService.createGetRequestHeader(projectID, 'getChat');
     }
 
-    getChatByUserId(userID: string) {
-        return this.requestService.createGetRequestHeader(userID, 'getUserChats');
-    }
-
-    getChatByForUserId(userID: string, otherUserId: string) {
-        let obj = {
-            "userID": userID,
-            "otherUserId": otherUserId
-        };
-        return this.requestService.createPostRequestHeader(JSON.stringify(obj), 'getUserChatsWithUser');
-    }
 }

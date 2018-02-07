@@ -10,7 +10,8 @@ export class RequestService {
     constructor(private http: Http) {
         this._localServer = 'http://localhost:3000/api/';
         this._deployedServer = 'https://macrop.herokuapp.com/api/';
-        this._server = this._deployedServer;
+        this._server = this._localServer;
+        ;
      }
 
     createPostRequestHeader(data: any, action: string) {

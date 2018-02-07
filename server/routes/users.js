@@ -96,7 +96,7 @@ router.delete("/deleteUser/:id", (req, res, next) => {
                 tas.save();
             });
         });
-        models.messages.remove({ "authro": userId }, (err, messag) => {
+        models.messages.remove({ "author": userId }, (err, messag) => {
             if (err)
                 res.send(err);
         });

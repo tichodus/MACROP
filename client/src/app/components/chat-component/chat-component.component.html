@@ -1,0 +1,72 @@
+<div class='container'>
+
+  <div class='row'>
+    <div *ngIf='!this._isCollapsed' class='messages'>
+      <div class='chat__div'>
+        <div *ngFor='let message of this._messages'>
+          <div class='col-xs-12 col-sm-12 col-md-12'>
+            <div *ngIf='message.author == this._userID' class='chat__message chat__message--myMessage'>
+              {{message.text}}
+            </div>
+            <div *ngIf='message.author != this._userID' class='chat__message chat__message--otherMessage'>
+              <span class='message__text'>{{message.text}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='chat__input--container'>
+        <div class='form-group'>
+          <input type='text' (keyup)='sendMessage(chatInput,$event)' #chatInput placeholder="Send message..." class='form-control'
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div *ngIf='this._project' class='col-sm-12 col-sm-3 col-md-3'>
+
+      <div *ngIf='!this._isCollapsed' (click)='chatCollapse()' class='chat-header row'>
+        <div class='col-xs-6 col-sm-6 col-md-6'>
+          <div class='project-name btn btn-lg btn-link'>{{this._project.name}}</div>
+        </div>
+        <div class='col-xs-6 col-sm-6 col-md-6'>
+          <button *ngIf='!this._isCollapsed' class='btn-collapse btn btn-link btn-lg pull-right'>
+            <i class="fa fa-caret-up"></i>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf='this._isCollapsed' (click)='chatExpand()' class='chat-header row'>
+        <div class='col-xs-6 col-sm-6 col-md-6'>
+          <div class='project-name btn btn-lg btn-link'>{{this._project.name}}</div>
+        </div>
+        <div class='col-xs-6 col-sm-6 col-md-6'>
+          <button *ngIf='this._isCollapsed' class='btn-collapse btn btn-link btn-lg pull-right'>
+            <i class="fa fa-caret-down"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class='row'>
+    <div id='messages' class='messages messages-closed container'>
+      <div class='container'>
+        <div *ngFor='let message of this._messages'>
+          <div class='row container'>
+            <div class='col-xs-12 col-sm-3 col-md-3'>
+              <div *ngIf='message.author == this._userID' class='chat__message--myMessage pull-right'>
+                {{message.text}}
+              </div>
+              <div *ngIf='message.author != this._userID' class='chat__message--otherMessage pull-left'>
+                {{message.text}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+</div>
