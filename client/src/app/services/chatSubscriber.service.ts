@@ -10,8 +10,6 @@ export class ChatSubscriber {
 
     constructor() {
         this.chatSubscriber = new Subject<any>();
-
-
     }
 
     update(data) {

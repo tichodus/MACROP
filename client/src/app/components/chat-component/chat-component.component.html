@@ -2,7 +2,7 @@
 
   <div class='row'>
     <div *ngIf='!this._isCollapsed' class='messages'>
-      <div class='chat__div'>
+      <div #chatDiv class='chat__div'>
         <div *ngFor='let message of this._messages'>
           <div class='col-xs-12 col-sm-12 col-md-12'>
             <div *ngIf='message.author == this._userID' class='chat__message chat__message--myMessage'>
