@@ -23,6 +23,7 @@ router.post("/createMessage", (req, res, next) => {
         if (err)
             res.send(err);
         res.json(messa);
+        io.emit('sentMessage', messa);
     });
 });
 

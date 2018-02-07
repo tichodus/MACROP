@@ -31,10 +31,10 @@ router.get("/getChatMessages/:id", (req, res, next) => {
 
 router.get("/getChat/:id", (req, res, next) => {
     let projectId = req.params['id'];
-    models.chats.findById(projectId, (err, proj) => {
+    models.chats.findOne({ "projectID": projectId }, (err, chat) => {
         if (err)
             res.send(err);
-        res.json(proj);
+        res.json(chat);
     });
 });
 
