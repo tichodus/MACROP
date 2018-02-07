@@ -32,7 +32,6 @@ export class ChatComponentComponent implements OnInit {
 
 
   ngAfterViewChecked() {
-    console.log(this.chatDiv);
     if (this.chatDiv)
       this._updateScroll(this.chatDiv.nativeElement);
   }
@@ -41,7 +40,10 @@ export class ChatComponentComponent implements OnInit {
     this.activatedRoute.params.subscribe(res => {
       this.projectService.getProjectById(res.id).subscribe(project => {
         this._project = project.json();
-        console.log(this._project);
+      });
+
+      this.projectService.getUsersOnProject(res.id).subscribe(users => {
+        this._users = users.json();
       });
 
       this.chatService.getProjectChatById(res.id).subscribe(chat => {
@@ -68,6 +70,10 @@ export class ChatComponentComponent implements OnInit {
   }
   chatExpand() {
     this._isCollapsed = false;
+  }
+
+  private _findUserById(userId: string) {
+    return this._users.find(user => user._id == userId);
   }
 
   sendMessage(chatInput: HTMLInputElement, $event: KeyboardEvent) {

@@ -97,4 +97,17 @@ router.put("/addTaskToProject", (req, res, next) => {
     })
 });
 
+router.get("/getUsersByProjectId/:id", (req, res, next) => {
+    let projectId = req.params['id'];
+    models.projects.findById(projectId, (err, proj) => {
+        if (err)
+            res.send(err);
+        else {
+            models.users.find({ $or: [{ '_id': proj.participians }, { '_id': proj.owners }] }, (err, users) => {
+                if (err) res.send(err); res.json(users);
+            });
+        }
+    });
+});
+
 module.exports = router;

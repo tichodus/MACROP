@@ -9,7 +9,7 @@
               {{message.text}}
             </div>
             <div *ngIf='message.author != this._userID' class='chat__message chat__message--otherMessage'>
-              <span class='message__text'>{{message.text}}</span>
+              <span class='message__text'><strong><span style='margin-right:5px;'>{{this._findUserById(message.author).username}}:</span></strong>{{message.text}}</span>
             </div>
           </div>
         </div>
@@ -17,8 +17,7 @@
 
       <div class='chat__input--container'>
         <div class='form-group'>
-          <input type='text' (keyup)='sendMessage(chatInput,$event)' #chatInput placeholder="Send message..." class='form-control'
-          />
+          <textarea type='text-content' (keyup)='sendMessage(chatInput,$event)' #chatInput placeholder="Send message..." class='form-control'></textarea>
         </div>
       </div>
     </div>
