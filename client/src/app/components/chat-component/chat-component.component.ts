@@ -6,6 +6,7 @@ import { Project } from '../../models/project';
 import { Message } from '../../models/message';
 import { User } from '../../models/user';
 import { ChatService } from '../../services/chat.service';
+import { ChatSubscriber } from '../../services/chatSubscriber.service';
 
 @Component({
   selector: 'chat',
@@ -18,9 +19,13 @@ export class ChatComponentComponent implements OnInit {
   private _messages: Array<Message>;
   private _users: Array<User>;
   private _userID: string;
-
-  constructor(private activatedRoute: ActivatedRoute, private projectService: ProjectService, private chatService: ChatService) {
+  private _chat: Chat;
+  constructor(private chatSubscriber: ChatSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private chatService: ChatService) {
     this._isCollapsed = true;
+    this.chatSubscriber.chatSubscriber.subscribe(message => {
+      this._messages.push(message);
+    })
+
   }
 
   ngOnInit() {
@@ -28,6 +33,10 @@ export class ChatComponentComponent implements OnInit {
       this.projectService.getProjectById(res.id).subscribe(project => {
         this._project = project.json();
         console.log(this._project);
+      });
+
+      this.chatService.getProjectChatById(res.id).subscribe(chat => {
+        this._chat = chat.json()
       });
 
       this.chatService.getMessagesForProject(res.id).subscribe(res => {
@@ -49,8 +58,8 @@ export class ChatComponentComponent implements OnInit {
 
   sendMessage(chatInput: HTMLInputElement, $event: KeyboardEvent) {
     if ($event.keyCode == 13) {
-      let message: Message = new Message(this._userID, chatInput.value, this._project._id);
-      this._messages.push(message);
+      let message: Message = new Message(this._userID, chatInput.value, this._chat._id);
+      this.chatService.sendMessage(message).subscribe();
       chatInput.value = '';
     }
   }
