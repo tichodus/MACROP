@@ -21,7 +21,9 @@
     word-break: break-all;
     color:black;
  }
-
+textarea{
+    resize: none;
+}
  
  .chat__div{
      padding:5px;

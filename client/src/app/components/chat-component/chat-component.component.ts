@@ -26,6 +26,7 @@ export class ChatComponentComponent implements OnInit {
     this._isCollapsed = true;
     this.chatSubscriber.chatSubscriber.subscribe(message => {
       this._messages.push(message);
+      this._isCollapsed = false;
     })
 
   }
