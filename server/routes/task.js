@@ -62,7 +62,6 @@ router.delete("/deleteTask/:id", (req, res, next) => {
                 proje.tasks = array;
                 proje.save();
             });
-
         });
     });
 });
@@ -98,6 +97,7 @@ router.post("/createTask", (req, res, next) => {
                 project.save();
             });
             res.json(task);
+            io.sockets.emit('taskCreated', proj);
         });
 });
 

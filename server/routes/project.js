@@ -104,7 +104,8 @@ router.get("/getUsersByProjectId/:id", (req, res, next) => {
             res.send(err);
         else {
             models.users.find({ $or: [{ '_id': proj.participians }, { '_id': proj.owners }] }, (err, users) => {
-                if (err) res.send(err); res.json(users);
+                if (err) res.send(err);
+                res.json(users);
             });
         }
     });
