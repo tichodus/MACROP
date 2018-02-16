@@ -11,7 +11,7 @@ mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop",
 });
 
 router.get("/getChatMessages/:id", (req, res, next) => {
-    let projectId = req.params['id'];
+    let projectId = req.params.id;
     models.chats.findOne({ "projectID": projectId }, (err, chat) => {
         if (err)
             res.send(err);
@@ -30,7 +30,7 @@ router.get("/getChatMessages/:id", (req, res, next) => {
 });
 
 router.get("/getChat/:id", (req, res, next) => {
-    let projectId = req.params['id'];
+    let projectId = req.params.id;
     models.chats.findOne({ "projectID": projectId }, (err, chat) => {
         if (err)
             res.send(err);

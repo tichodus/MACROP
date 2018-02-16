@@ -1,3 +1,5 @@
+//import { chats } from "../schemas and models/data-model.js";
+
 const express = require("express");
 const router = express.Router();
 //var mongojs = require("mongojs");
@@ -64,7 +66,7 @@ router.post("/createProject", (req, res, next) => {
 
 })
 
-router.put("/addUserToProject", (request, response) => { //izmenio sam, Stefi da promeni
+router.put("/addUserToProject", (request, response) => {
     console.log(request.body);
     let userId = request.body.userId;
     let projectId = request.body.projectId;
@@ -98,7 +100,7 @@ router.put("/addTaskToProject", (req, res, next) => {
 });
 
 router.get("/getUsersByProjectId/:id", (req, res, next) => {
-    let projectId = req.params['id'];
+    let projectId = req.params.id;
     models.projects.findById(projectId, (err, proj) => {
         if (err)
             res.send(err);
@@ -110,5 +112,50 @@ router.get("/getUsersByProjectId/:id", (req, res, next) => {
         }
     });
 });
+
+router.delete("/deleteProject/:id", (req, res, next) => {
+    let projectId = req.params.id;
+    models.projects.findById(projectId, (err, project) => {
+        if (err)
+            res.json(err);
+        else {
+            models.chats.findOne({ projectID: project._id }, (err, chat) => {
+                if (err)
+                    res.json(err);
+                else {
+                    models.messages.remove({ chatID: chat._id }, (err, messages) => {
+                        if (err)
+                            res.json(err);
+                        else {
+                            chat.remove();
+                        }
+                    });
+                }
+            });
+            models.tasks.remove({ _id: project.tasks }, (err, task) => {
+                if (err)
+                    res.json(err);
+            });
+            res.json(project);
+            project.remove();
+        }
+    });
+});
+
+// router.get("/allTasksOfProject/:id", (req, res, next) => {
+//     let projectId = req.params.id;
+//     models.projects.findById(projectId, (err, project) => {
+//         if (err)
+//             res.json(err);
+//         else {
+//             models.tasks.find({ _id: project.tasks }, (err, tasks) => {
+//                 if (err)
+//                     res.json(err);
+//                 else
+//                     res.json(tasks);
+//             });
+//         }
+//     });
+// });
 
 module.exports = router;

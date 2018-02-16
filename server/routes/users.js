@@ -15,10 +15,20 @@ router.get("/getAllUsers", (req, res, next) => {
     models.users.find((err, docs) => {
         if (err)
             res.json(err);
-        res.json(docs);
+        else
+            res.json(docs);
     });
 });
 
+router.get("/userSearch/:username", (req, res, next) => {
+    let username = req.params.username;
+    models.users.findOne({ username: username }, (err, user) => {
+        if (err)
+            res.json(err);
+        else
+            res.json(user);
+    });
+});
 
 router.post('/login', (req, res, next) => {
     let user = req.body;
