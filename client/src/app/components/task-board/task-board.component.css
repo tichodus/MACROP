@@ -1,23 +1,26 @@
 .task-panel{
+    color:white;
     background-image:url('/assets/taskBg.jpeg');
     width:100%;
     height:100vh;
-    overflow: hidden;
-    overflow-y: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    color:white;
 }
+
 .task-card{
     background: transparent;
     background-color: #e2e4e6;
     border-radius:25px;
     padding:10px;
+    margin:15px;
+    width:250px;
 }
 .card-header{
     width:100%;
-    height:50px;
+    min-height:50px;
     color:#333;
     font-weight: 600;
     text-align: center;
@@ -55,3 +58,9 @@
 .finished{
     background-color:#4ef074;
 }
+
+.container-scrollable{
+    margin:10px;
+    display: -webkit-box;
+}
+

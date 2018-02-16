@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { RequestService } from '../../services/requestService.service';
 import * as Socket from 'socket.io-client';
 import { ProjectSubscriber } from '../../services/projectSubscriber.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-project-form',
@@ -19,7 +20,7 @@ export class NewProjectFormComponent implements OnInit {
   projectName: string;
   errorFlag: boolean;
   private socket;
-  constructor(private userService: UsersService, private requestService: RequestService) {
+  constructor(private userService: UsersService, private requestService: RequestService, private router: Router) {
     this.participans = new Array<User>();
     this.loggedUser = JSON.parse(UserSession.getUserFromStorage());
     this.errorFlag = false;
@@ -32,8 +33,16 @@ export class NewProjectFormComponent implements OnInit {
       return;
     }
     let project = this.createRequestObject(projectName);
-    this.requestService.createPostRequestHeader(project, 'createProject').subscribe(res => console.log(res));
+    this.requestService.createPostRequestHeader(project, 'createProject').subscribe((res) => {
+      console.log(res);
+      this.router.navigate(['userPanel']);
+    });
 
+  }
+
+  removeParticipant(user: User) {
+    let index = this.participans.indexOf(user);
+    this.participans = this.participans.filter(participant => participant._id != user._id);
   }
 
   createRequestObject(name: string) {

@@ -1,32 +1,76 @@
-<div class='container'>
-  <div class='row' (submit)='createProject()'>
+<div class="wrapper">
+  <div class='container'>
+    <div class='row' (submit)='createProject()'>
       <div class='col-xs-12 col-sm-12 col-md-12'>
         <div class='form-group'>
+          <label>Project name:</label>
           <input class='form-control' #projectName name='projectName' />
         </div>
       </div>
 
-      <div *ngIf='users' class='col-xs-12 col-sm-12 col-md-12'>
-        <table>
+      <div *ngIf='users' class='col-xs-12 col-sm-6 col-md-6'>
+        <table class='table table-striped'>
           <thead>
             <tr>
               <th>Username</th>
-              <th>Add user</th>
+              <th>Email</th>
+              <th>Add</th>
             </tr>
-
           </thead>
           <tbody>
-            <tr *ngFor='let user of users'>
-              <td>{{user.username}}</td>
+            <tr *ngFor='let user of users | paginate: {itemsPerPage:9,currentPage:page} '>
               <td>
-                <button (click)='addParticipant(user)'>
+                <span>{{user.username}}</span>
+              </td>
+              <td>
+                <span>{{user.email}}</span>
+              </td>
+              <td>
+                <button class='btn btn-success btn-md' (click)='addParticipant(user)'>
                   <strong>+</strong>
+                </button>
+              </td>
+            </tr>
+            <div class='paginator col-xs-12 col-sm-12 col-md-12'>
+              <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+          </tbody>
+        </table>
+      </div>
+      <div class='col-sm-6 col-md-6'>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>password</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let participant of participans  | paginate: {itemsPerPage:9,currentPage:page}'>
+              <td>
+                <span>{{participant.username}}</span>
+              </td>
+              <td>
+                <span>{{participant.email}}</span>
+              </td>
+              <td>
+                <button (click)='removeParticipant(participant)' class='btn btn-danger btn-md'>
+                  <strong>-</strong>
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div class='col-xs-12 col-sm-12 col-md-12'>
+        <div class='error' *ngIf='errorFlag'>
+          <div class="alert alert-warning">
+            <strong>Warrning! Missing project name or there is no added participans to project</strong>
+          </div>
+        </div>
+      </div>
       <button (click)='createProject(projectName.value)' class='btn btn-lg btn-success'>Create Project</button>
+    </div>
   </div>
 </div>
