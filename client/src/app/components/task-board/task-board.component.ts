@@ -5,7 +5,7 @@ import { ProjectService } from '../../services/project.service';
 import { Completness } from '../../models/enums/completness';
 import { TaskService } from '../../services/task.services';
 import { TaskSubscriber } from '../../services/taskSubscriber.service';
-
+import 'ng2-dnd/bundles/style.css';
 @Component({
   selector: 'task-board',
   templateUrl: './task-board.component.html',

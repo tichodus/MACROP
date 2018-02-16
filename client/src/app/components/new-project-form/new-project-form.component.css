@@ -1,0 +1,17 @@
+.wrapper{
+    padding:5px;
+    background-image: url('/assets/panelBg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    overflow-x:hidden;
+}
+
+ span{
+    color:white;
+}
+
+.error{
+    padding-bottom:10px;
+}

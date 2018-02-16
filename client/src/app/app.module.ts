@@ -28,6 +28,9 @@ import { TaskService } from './services/task.services';
 import { TaskSubscriber } from './services/taskSubscriber.service';
 import { ChatComponentComponent } from './components/chat-component/chat-component.component';
 import { AngularDraggableModule } from 'angular2-draggable';
+import { DragScrollModule } from 'ngx-drag-scroll';
+import {DndModule} from 'ng2-dnd';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { AngularDraggableModule } from 'angular2-draggable';
     ChatComponentComponent
   ],
   imports: [
+    NgDragDropModule.forRoot(),
+    DndModule.forRoot(),
+    DragScrollModule,
     AngularDraggableModule,
     NgxPaginationModule,
     HttpModule,

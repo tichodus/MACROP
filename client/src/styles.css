@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+}
+.scrollable-x{
+    overflow-x:auto !important;
+}
+.scrollable-y{
+    overflow-y:auto !important;
+}
+
+.scrollable{
+    overflow:auto !important;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background: transparent;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,.15)
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.3); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(0,0,0,0.3); 
+}
