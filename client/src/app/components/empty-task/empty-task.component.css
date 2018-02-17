@@ -1,0 +1,29 @@
+.taskName{
+    width:100%;
+}
+
+ #subtask{
+    width: 100%;
+}
+.empty-task__task-card{
+    background: transparent;
+    background-color: #e2e4e6;
+    border-radius:25px;
+    padding:10px;
+    margin:15px;
+    width:250px;
+}
+.empty-task__card-header{
+    width:100%;
+    min-height:50px;
+    color:#333;
+    font-weight: 600;
+    font-size: 22px;
+}
+.empty-task__card-body{
+ color:#333;
+ background-color: #eef0f1;
+ width:100%;
+ padding:0;
+}
+

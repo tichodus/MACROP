@@ -3,21 +3,22 @@
 </div>
 
 <div id='main' dragScroll class='task-panel'>
-  <div *ngIf='this._isProjectOwner'>
+  <div *ngIf='this._isProjectOwner === "true"'>
     <div *ngIf='!this._sidebarOpened'>
       <span style="font-size:30px;cursor:pointer" (click)="openSidebar(sidebar)">&#9776;</span>
     </div>
   </div>
   <div class='container-scrollable'>
     <div dnd-droppable (onDropSuccess)="transferDataSuccess($event)" style='display:inherit' *ngIf='_tasks'>
+      <empty-task [projectId]='this._projectId' [projectOwner]='this._userID' ></empty-task>
       <div dnd-draggable [dragEnabled]="true" [dragData]="task" *ngFor='let task of _tasks; let i = index' class='panel panel-default task-card'>
         <div class='card-header'>{{task.name}}</div>
-        <div *ngFor='let subTask of task.body '>
-          <div id='card-body' *ngIf="task.completness=='paused'" class='card-body paused'>
+        <div *ngFor='let subTask of task.body; let i = index'>
+          <div id='card-body' *ngIf="task.completness[i]=='paused'" class='card-body paused'>
             <div class='buttons-container'>
-              <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
-              <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
-              <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+              <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task,i)'></button>
+              <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task,i)'></button>
+              <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task,i)'></button>
             </div>
             <br/>
             <div class='card-content'>
@@ -25,11 +26,11 @@
             </div>
           </div>
 
-          <div id='card-body' *ngIf="task.completness=='working'" class='card-body working'>
+          <div id='card-body' *ngIf="task.completness[i]=='working'" class='card-body working'>
             <div class='buttons-container'>
-              <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
-              <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
-              <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+              <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task,i)'></button>
+              <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task,i)'></button>
+              <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task,i)'></button>
             </div>
             <br/>
             <div class='card-content'>
@@ -37,11 +38,11 @@
             </div>
           </div>
 
-          <div id='card-body' *ngIf="task.completness=='finished'" class='card-body finished'>
+          <div id='card-body' *ngIf="task.completness[i]=='finished'" class='card-body finished'>
             <div class='buttons-container'>
-              <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
-              <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
-              <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+              <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task,i)'></button>
+              <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task,i)'></button>
+              <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task,i)'></button>
             </div>
             <br/>
             <div class='card-content'>

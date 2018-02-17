@@ -1,0 +1,17 @@
+<div class='panel panel-default empty-task__task-card'>
+  <div class='empty-task__card-header'>
+    <div class='form-group'>
+      <input type='text' class='form-control taskName' placeholder='Enter task name...' #taskName />
+    </div>
+  </div>
+  <div id='empty-task__card-body' class='empty-task__card-body'>
+    <div class='empty-task__card-content'>
+      <div class='form-group'>
+        <textarea id='subtask' class='form-control' type='text-content' placeholder='Enter subtask content...' #subTask></textarea>
+      </div>
+      <div style='width:100%; text-align:center;'>
+        <button (click)='createTask(taskName,subTask)' class='btn btn-success btn-md'>Create new Task</button>
+      </div>
+    </div>
+  </div>
+</div>

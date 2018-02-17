@@ -20,6 +20,7 @@ export class TaskBoardComponent implements OnInit {
   private _sidebarOpened: boolean;
   constructor(private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService) {
     this._sidebarOpened = false;
+    this._isProjectOwner = false;
     this.taskSubscriber.taskSubscriber.subscribe((task: Task) => {
       let alreadyExists = false;
       this._tasks.forEach(_task => {
@@ -31,9 +32,10 @@ export class TaskBoardComponent implements OnInit {
         let taskIndex = this._tasks.findIndex(_task => task._id == _task._id);
         this._tasks.splice(taskIndex, 1, task);
       }
-      else
-        this._tasks.push(task);
-
+      else {
+        if (task.responsible.findIndex(userID => userID == this._userID) != -1)
+          this._tasks.push(task);
+      }
     });
   }
 
@@ -59,7 +61,7 @@ export class TaskBoardComponent implements OnInit {
     });
   }
 
-  setTaskFinished(task: Task) {
+  setTaskFinished(task: Task, subTaskIndex:string) {
     task.completness = 'finished';
     console.log(task);
     this.taskService.updateTask(task).subscribe();

@@ -31,6 +31,7 @@ import { AngularDraggableModule } from 'angular2-draggable';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import {DndModule} from 'ng2-dnd';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { EmptyTaskComponent } from './components/empty-task/empty-task.component';
 
 
 
@@ -48,7 +49,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     NewProjectFormComponent,
     ProjectPanelComponent,
     ChatComponentComponent,
-    SidebarComponent
+    SidebarComponent,
+    EmptyTaskComponent
   ],
   imports: [
     DndModule.forRoot(),

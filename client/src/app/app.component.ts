@@ -12,7 +12,7 @@ import { TaskSubscriber } from './services/taskSubscriber.service';
 })
 export class AppComponent {
   private socket;
-  constructor(private taskSubscriber:TaskSubscriber, private projectSubscriber: ProjectSubscriber, private chatSubscriber: ChatSubscriber) {
+  constructor(private taskSubscriber: TaskSubscriber, private projectSubscriber: ProjectSubscriber, private chatSubscriber: ChatSubscriber) {
     this.socket = Socket('https://macrop.herokuapp.com/');
     this.socket.on('projectCreated', (data) => {
       this.projectSubscriber.update(data);
@@ -22,8 +22,12 @@ export class AppComponent {
       this.chatSubscriber.update(data);
     });
 
-    this.socket.on('taskUpdated', (data)=>{
+    this.socket.on('taskUpdated', (data) => {
       this.taskSubscriber.update(data);
     })
+
+    this.socket.on('taskCreated', (data) => {
+      this.taskSubscriber.update(data);
+    });
   }
 }
