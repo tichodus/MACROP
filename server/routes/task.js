@@ -71,6 +71,8 @@ router.put("/updateTask", (req, res, next) => {
     let taskId = req.body._id;
     let name = req.body.name;
     let completness = req.body.completness;
+    let responsible = req.body.responsible;
+    let body = req.body.body;
     models.tasks.findById(taskId, (erro, task) => {
         if (erro) {
             res.send(erro);
@@ -78,6 +80,9 @@ router.put("/updateTask", (req, res, next) => {
         }
         task.name = name;
         task.completness = completness;
+        task.responsible = responsible;
+        task.completness = completness;
+        task.body = body;
         task.save();
         io.sockets.emit('taskUpdated', task);
     });
@@ -87,8 +92,10 @@ router.post("/createTask", (req, res, next) => {
     let name = req.body.name;
     let projectId = req.body.projectId;
     let responsible = req.body.responsible;
-    let completness = "paused";
-    models.tasks.create({ name: name, projectID: projectId, completness: completness, responsible: responsible },
+    let body = req.body.body;
+    let completness = new Array();
+    completness.push("paused");
+    models.tasks.create({ name: name, projectID: projectId, completness: completness, responsible: responsible, body: body },
         (erro, task) => {
             if (erro)
                 res.send(erro);

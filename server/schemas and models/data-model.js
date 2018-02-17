@@ -14,7 +14,7 @@ let tasksSchema = mongoose.Schema({
     body: [],
     projectID: String,
     responsible: [],
-    completness: String
+    completness: []
 });
 
 let projectSchema = mongoose.Schema({
