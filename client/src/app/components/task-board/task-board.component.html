@@ -1,10 +1,19 @@
-<div dragScroll class='task-panel'>
+<div>
+  <sidebar #sidebar (sidebarClosed)='this._sidebarOpened=false'></sidebar>
+</div>
+
+<div id='main' dragScroll class='task-panel'>
+  <div *ngIf='this._isProjectOwner'>
+    <div *ngIf='!this._sidebarOpened'>
+      <span style="font-size:30px;cursor:pointer" (click)="openSidebar(sidebar)">&#9776;</span>
+    </div>
+  </div>
   <div class='container-scrollable'>
-    <div style='display:inherit' *ngIf='_tasks'>
-      <div *ngFor='let task of _tasks; let i = index' class='panel panel-default task-card'>
+    <div dnd-droppable (onDropSuccess)="transferDataSuccess($event)" style='display:inherit' *ngIf='_tasks'>
+      <div dnd-draggable [dragEnabled]="true" [dragData]="task" *ngFor='let task of _tasks; let i = index' class='panel panel-default task-card'>
         <div class='card-header'>{{task.name}}</div>
         <div *ngFor='let subTask of task.body '>
-          <div droppable draggable id='card-body' *ngIf="task.completness=='paused'" class='card-body paused'>
+          <div id='card-body' *ngIf="task.completness=='paused'" class='card-body paused'>
             <div class='buttons-container'>
               <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
               <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
@@ -13,39 +22,37 @@
             <br/>
             <div class='card-content'>
               <span>{{subTask}}</span>
+            </div>
           </div>
-        </div>
 
-        <div droppable draggable id='card-body' *ngIf="task.completness=='working'" class='card-body working'>
-          <div class='buttons-container'>
-            <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
-            <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
-            <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+          <div id='card-body' *ngIf="task.completness=='working'" class='card-body working'>
+            <div class='buttons-container'>
+              <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
+              <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
+              <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+            </div>
+            <br/>
+            <div class='card-content'>
+              <span>{{subTask}}</span>
+            </div>
           </div>
-          <br/>
-          <div class='card-content'>
-            <span>{{subTask}}</span>
-          </div>
-        </div>
 
-        <div droppable draggable id='card-body' *ngIf="task.completness=='finished'" class='card-body finished'>
-          <div class='buttons-container'>
-            <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
-            <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
-            <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
-          </div>
-          <br/>
-          <div class='card-content'>
-            <span>{{subTask}}</span>
+          <div id='card-body' *ngIf="task.completness=='finished'" class='card-body finished'>
+            <div class='buttons-container'>
+              <button class='btn btn-sm btn-success round' (click)='setTaskFinished(task)'></button>
+              <button class='btn btn-sm btn-warning round' (click)='setTaskWorking(task)'></button>
+              <button class='btn btn-sm btn-danger round' (click)='setTaskPaused(task)'></button>
+            </div>
+            <br/>
+            <div class='card-content'>
+              <span>{{subTask}}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-
-
 
 
 <!-- <div class=''>

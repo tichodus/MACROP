@@ -64,3 +64,11 @@
     display: -webkit-box;
 }
 
+.wrapper{
+    display: inherit;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}

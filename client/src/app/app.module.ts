@@ -30,7 +30,9 @@ import { ChatComponentComponent } from './components/chat-component/chat-compone
 import { AngularDraggableModule } from 'angular2-draggable';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import {DndModule} from 'ng2-dnd';
-import { NgDragDropModule } from 'ng-drag-drop';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+
+
 
 @NgModule({
   declarations: [
@@ -45,10 +47,10 @@ import { NgDragDropModule } from 'ng-drag-drop';
     TaskBoardComponent,
     NewProjectFormComponent,
     ProjectPanelComponent,
-    ChatComponentComponent
+    ChatComponentComponent,
+    SidebarComponent
   ],
   imports: [
-    NgDragDropModule.forRoot(),
     DndModule.forRoot(),
     DragScrollModule,
     AngularDraggableModule,
