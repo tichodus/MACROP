@@ -27,6 +27,15 @@ export class ProjectService {
             projectId: projectId,
             userId: user._id
         }
-        return this.requestService.createPutRequestHeader(requestObejct,'removeProjectUser');
+        return this.requestService.createPutRequestHeader(requestObejct, 'removeProjectUser');
+    }
+
+    addUserToProject(projectId: string, user: User) {
+        let requestObejct = {
+            projectId: projectId,
+            userId: user._id
+        }
+
+        return this.requestService.createPutRequestHeader(requestObejct, 'addUserToProject');
     }
 }

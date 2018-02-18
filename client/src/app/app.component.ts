@@ -30,8 +30,12 @@ export class AppComponent {
       this.taskSubscriber.update(data);
     });
 
-    this.socket.on('userRemovedFromProject',(data)=>{
+    this.socket.on('userRemovedFromProject', (data) => {
       this.projectSubscriber.updateRemovedUser(data);
     });
+
+    this.socket.on('userAddedToProject', (data) => {
+      this.projectSubscriber.updateAddedUser(data);
+    })
   }
 }

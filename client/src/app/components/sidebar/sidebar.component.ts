@@ -39,5 +39,9 @@ export class SidebarComponent implements OnInit {
   removeUser(removeUserModal) {
     removeUserModal.open();
   }
+
+  addUser(addUserModal){
+    addUserModal.open();
+  }
 }
 

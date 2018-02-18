@@ -8,9 +8,11 @@ import * as Socket from 'socket.io-client';
 export class ProjectSubscriber {
     projectSubscriber: Subject<any>;
     userRemovedFromProject: Subject<any>;
+    userAddedToProject:Subject<any>;
     constructor() {
         this.projectSubscriber = new Subject<any>();
         this.userRemovedFromProject = new Subject();
+        this.userAddedToProject = new Subject();
     }
 
     update(data) {
@@ -19,5 +21,9 @@ export class ProjectSubscriber {
 
     updateRemovedUser(data) {
         this.userRemovedFromProject.next(data);
+    }
+
+    updateAddedUser(data){
+        this.userAddedToProject.next(data);
     }
 }
