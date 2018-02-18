@@ -32,8 +32,8 @@ import { DragScrollModule } from 'ngx-drag-scroll';
 import {DndModule} from 'ng2-dnd';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { EmptyTaskComponent } from './components/empty-task/empty-task.component';
-
-
+import {ModalModule} from 'angular-custom-modal';
+import { AddOrRemoveUserModalComponent } from './components/add-or-remove-user.modal/add-or-remove-user.modal.component';
 
 @NgModule({
   declarations: [
@@ -50,9 +50,11 @@ import { EmptyTaskComponent } from './components/empty-task/empty-task.component
     ProjectPanelComponent,
     ChatComponentComponent,
     SidebarComponent,
-    EmptyTaskComponent
+    EmptyTaskComponent,
+    AddOrRemoveUserModalComponent,
   ],
   imports: [
+    ModalModule,
     DndModule.forRoot(),
     DragScrollModule,
     AngularDraggableModule,

@@ -13,5 +13,28 @@ export class TaskService {
         return this.requestService.createPutRequestHeader(task, 'updateTask');
     }
 
+    createTask(taskName: string, subTask: string, projectId: string, projectOwner: string) {
+        if (!taskName)
+            throw Error("Taskname must be defined!");
+
+        let data;
+        if (!subTask)
+            data = this._createRequestObject(taskName, projectId, [projectOwner], [], []);
+        else
+            data = this._createRequestObject(taskName, projectId, [projectOwner], [subTask], ['paused']);
+        this.requestService.createPostRequestHeader(data, 'createTask').subscribe(res => console.log(res));
+
+    }
+
+    _createRequestObject(taskName: string, projectId: string, responsible: Array<string>, body: Array<string>, completness: Array<string>) {
+        return {
+            name: taskName,
+            projectID: projectId,
+            responsible: responsible,
+            body: body,
+            completness: completness
+        }
+    }
+
 
 }

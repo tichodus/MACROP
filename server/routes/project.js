@@ -142,6 +142,31 @@ router.delete("/deleteProject/:id", (req, res, next) => {
     });
 });
 
+router.put("/removeProjectUser", (req, res, next) => {
+    let deletedUser = req.body.userId;
+    let projectId = req.body.projectId;
+    models.projects.findById(projectId, (err, proj) => {
+        if (err)
+            res.send(err);
+        else {
+            proj.participians = proj.participians.filter(user => user != deletedUser);
+            proj.save();
+
+            models.tasks.find({ responsible: deletedUser }, (err, task) => {
+                if (err)
+                    res.send(err);
+                else {
+                    task.forEach(element => {
+                        element.responsible = element.responsible.filter(user => user != deletedUser);
+                        element.save();
+                    });
+                    io.emit('userRemovedFromProject', deletedUser);
+                }
+            });
+        }
+    });
+});
+
 // router.get("/allTasksOfProject/:id", (req, res, next) => {
 //     let projectId = req.params.id;
 //     models.projects.findById(projectId, (err, project) => {
@@ -157,5 +182,8 @@ router.delete("/deleteProject/:id", (req, res, next) => {
 //         }
 //     });
 // });
+
+
+
 
 module.exports = router;

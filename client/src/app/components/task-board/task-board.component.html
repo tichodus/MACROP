@@ -1,5 +1,5 @@
 <div>
-  <sidebar #sidebar (onTaskCreate)='this._createTask = true' (sidebarClosed)='this._sidebarOpened=false'></sidebar>
+  <sidebar [projectId]='_projectId' #sidebar (onTaskCreate)='this._createTask = true' (sidebarClosed)='this._sidebarOpened=false'></sidebar>
 </div>
 
 <div dragScroll class='task-panel'>
@@ -7,7 +7,7 @@
     <div *ngIf='!this._sidebarOpened'>
       <span style="margin-left:5px; font-size:30px;cursor:pointer" (click)="openSidebar(sidebar)">&#9776;</span>
     </div>
-  </div>
+  </div>         
   <div class='container-scrollable'>
     <div dnd-droppable (onDropSuccess)="transferDataSuccess($event)" style='display:inherit' *ngIf='_tasks'>
       <empty-task *ngIf='this._createTask' (taskCreated)='this._createTask = false' [projectId]='this._projectId' [projectOwner]='this._userID'></empty-task>

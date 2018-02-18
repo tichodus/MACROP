@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { RequestService } from "./requestService.service";
+import { User } from "../models/user";
 
 @Injectable()
 export class ProjectService {
@@ -19,5 +20,13 @@ export class ProjectService {
 
     getUsersOnProject(projectId: string) {
         return this.requestService.createGetRequestHeader(projectId, 'getUsersByProjectId');
+    }
+
+    updateProjectUsers(projectId: string, user: User) {
+        let requestObejct = {
+            projectId: projectId,
+            userId: user._id
+        }
+        return this.requestService.createPutRequestHeader(requestObejct,'removeProjectUser');
     }
 }

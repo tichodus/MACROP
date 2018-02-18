@@ -2,6 +2,8 @@
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   <a href="javascript:void(0)" (click)='createTask()'>Create New Task</a>
   <a href="javascript:void(0)">Add user to Project</a>
-  <a href="javascript:void(0)">Remove user from Project</a>
+  <a href="javascript:void(0)" (click)='removeUser(removeUserModal)'>Remove user from Project</a>
   <a href="javascript:void(0)">View progress</a>
 </div>
+
+<add-or-remove-user-modal #removeUserModal  [projectId]='this.projectId'></add-or-remove-user-modal>

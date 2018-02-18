@@ -1,11 +1,12 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../../models/task';
 import { ProjectService } from '../../services/project.service';
 import { Completness } from '../../models/enums/completness';
 import { TaskService } from '../../services/task.services';
 import { TaskSubscriber } from '../../services/taskSubscriber.service';
 import 'ng2-dnd/bundles/style.css';
+import { ProjectSubscriber } from '../../services/projectSubscriber.service';
 
 @Component({
   selector: 'task-board',
@@ -19,7 +20,7 @@ export class TaskBoardComponent implements OnInit {
   private _tasks: Array<Task>;
   private _sidebarOpened: boolean;
   private _createTask: boolean;
-  constructor(private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService) {
+  constructor(private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService, private projectSubscriber: ProjectSubscriber,private router:Router) {
     this._sidebarOpened = false;
     this._isProjectOwner = false;
     this._createTask = false;
@@ -39,6 +40,10 @@ export class TaskBoardComponent implements OnInit {
         if (task.responsible.findIndex(userID => userID == this._userID) != -1)
           this._tasks.push(task);
       }
+    });
+    this.projectSubscriber.userRemovedFromProject.subscribe(userId => {
+      if(userId == this._userID)
+        this.router.navigate['userPanel'];
     });
   }
 
@@ -92,12 +97,12 @@ export class TaskBoardComponent implements OnInit {
 
   addSubtask($event: KeyboardEvent, task: Task, subtask: string) {
     if ($event.keyCode == 13) {
-      if(!$event.shiftKey){
-      task.body.push(subtask);
-      task.completness.push('paused');
-      this.taskService.updateTask(task).subscribe();
-      subtask = '';
+      if (!$event.shiftKey) {
+        task.body.push(subtask);
+        task.completness.push('paused');
+        this.taskService.updateTask(task).subscribe();
+        subtask = '';
+      }
     }
   }
-}
 }

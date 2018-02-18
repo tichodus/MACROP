@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'sidebar',
@@ -8,7 +8,11 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class SidebarComponent implements OnInit {
   @Output() sidebarClosed: EventEmitter<any>;
   @Output() onTaskCreate: EventEmitter<any>;
+  @Input() projectId: string;
+  private _removeUser: boolean;
+
   constructor() {
+    this._removeUser = false;
     this.sidebarClosed = new EventEmitter();
     this.onTaskCreate = new EventEmitter();
   }
@@ -32,4 +36,8 @@ export class SidebarComponent implements OnInit {
     this.onTaskCreate.emit(null);
   }
 
+  removeUser(removeUserModal) {
+    removeUserModal.open();
+  }
 }
+
