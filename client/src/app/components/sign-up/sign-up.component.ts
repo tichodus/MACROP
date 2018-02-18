@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../models/user';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sign-up',
@@ -13,7 +13,7 @@ export class SignUpComponent implements OnInit {
 
   validationError: boolean;
   userAlreadyExists: boolean;
-  constructor(private usersService: UsersService, private router:Router) {
+  constructor(private usersService: UsersService, private router: Router) {
     this.validationError = false;
   }
 
@@ -49,7 +49,8 @@ export class SignUpComponent implements OnInit {
     this.validationError = false;
     let user: User = new User(username, password, email);
     this.usersService.register(user).subscribe(res => {
-      if (res.json())
+      let isRegistered = res.json();
+      if (!isRegistered)
         this.userAlreadyExists = true;
       else {
         this.userAlreadyExists = false;

@@ -7,9 +7,9 @@ export class Task {
     body: Array<string>;
     projectID: string;
     responsible: Array<string>;
-    completness: string;
+    completness: Array<string>;
     
-    constructor(id: string, name: string, body: Array<string>, projectID: string, responsible: Array<string>,completness:string) {
+    constructor(id: string, name: string, body: Array<string>, projectID: string, responsible: Array<string>,completness:Array<string>) {
         this._id = id;
         this.name = name;
         this.body = body;

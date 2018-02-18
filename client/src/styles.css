@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-body{
+#main {
+    transition: margin-left .5s;
 }
 .scrollable-x{
     overflow-x:auto !important;

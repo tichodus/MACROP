@@ -9,7 +9,9 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-
+span{
+    white-space: normal;
+}
 .task-card{
     background: transparent;
     background-color: #e2e4e6;
@@ -34,6 +36,7 @@
  width:100%;
  padding:0;
  padding-bottom:20px;
+ margin-bottom:10px;
 }
 .buttons-container{
     float:right;
@@ -69,7 +72,3 @@
     display: inherit;
 }
 
-#main {
-    transition: margin-left .5s;
-    padding: 16px;
-}

@@ -10,6 +10,8 @@ export class TaskService {
     updateTask(task: Task) {
         if (!task || typeof Task == 'undefined')
             throw Error("Task must be defined");
-        return this.requestService.createPostRequestHeader(task, 'updateTask');
+        return this.requestService.createPutRequestHeader(task, 'updateTask');
     }
+
+
 }

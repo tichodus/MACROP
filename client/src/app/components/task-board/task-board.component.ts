@@ -18,11 +18,14 @@ export class TaskBoardComponent implements OnInit {
   private _projectId: string;
   private _tasks: Array<Task>;
   private _sidebarOpened: boolean;
+  private _createTask: boolean;
   constructor(private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService) {
     this._sidebarOpened = false;
     this._isProjectOwner = false;
+    this._createTask = false;
     this.taskSubscriber.taskSubscriber.subscribe((task: Task) => {
       let alreadyExists = false;
+      console.log(task);
       this._tasks.forEach(_task => {
         if (task._id == _task._id)
           alreadyExists = true;
@@ -61,19 +64,20 @@ export class TaskBoardComponent implements OnInit {
     });
   }
 
-  setTaskFinished(task: Task, subTaskIndex:string) {
-    task.completness = 'finished';
+  setTaskFinished(task: Task, subTaskIndex: number) {
+    console.log(subTaskIndex);
+    task.completness[subTaskIndex] = 'finished';
     console.log(task);
     this.taskService.updateTask(task).subscribe();
   }
 
-  setTaskWorking(task: Task) {
-    task.completness = 'working';
+  setTaskWorking(task: Task, subTaskIndex: number) {
+    task.completness[subTaskIndex] = 'working';
     this.taskService.updateTask(task).subscribe();
   }
 
-  setTaskPaused(task: Task) {
-    task.completness = 'paused';
+  setTaskPaused(task: Task, subTaskIndex: number) {
+    task.completness[subTaskIndex] = 'paused';
     this.taskService.updateTask(task).subscribe();
   }
 
@@ -85,4 +89,15 @@ export class TaskBoardComponent implements OnInit {
     sidebar.openNav();
     this._sidebarOpened = true;
   }
+
+  addSubtask($event: KeyboardEvent, task: Task, subtask: string) {
+    if ($event.keyCode == 13) {
+      if(!$event.shiftKey){
+      task.body.push(subtask);
+      task.completness.push('paused');
+      this.taskService.updateTask(task).subscribe();
+      subtask = '';
+    }
+  }
+}
 }

@@ -93,8 +93,7 @@ router.post("/createTask", (req, res, next) => {
     let projectId = req.body.projectID;
     let responsible = req.body.responsible;
     let body = req.body.body;
-    let completness = new Array();
-    completness.push("paused");
+    let completness = req.body.completness;
     models.tasks.create({ name: name, projectID: projectId, completness: completness, responsible: responsible, body: body },
         (erro, task) => {
             if (erro)
@@ -103,7 +102,7 @@ router.post("/createTask", (req, res, next) => {
                 if (err)
                     res.send(err);
                 else {
-                    project.tasks.push(task._id);
+                    project.tasks.push(task.id);
                     project.save();
                 }
             });
