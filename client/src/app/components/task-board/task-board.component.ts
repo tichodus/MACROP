@@ -7,6 +7,7 @@ import { TaskService } from '../../services/task.services';
 import { TaskSubscriber } from '../../services/taskSubscriber.service';
 import 'ng2-dnd/bundles/style.css';
 import { ProjectSubscriber } from '../../services/projectSubscriber.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'task-board',
@@ -20,7 +21,7 @@ export class TaskBoardComponent implements OnInit {
   private _tasks: Array<Task>;
   private _sidebarOpened: boolean;
   private _createTask: boolean;
-  constructor(private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService, private projectSubscriber: ProjectSubscriber,private router:Router) {
+  constructor(private location:Location,private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService, private projectSubscriber: ProjectSubscriber, private router: Router) {
     this._sidebarOpened = false;
     this._isProjectOwner = false;
     this._createTask = false;
@@ -42,8 +43,9 @@ export class TaskBoardComponent implements OnInit {
       }
     });
     this.projectSubscriber.userRemovedFromProject.subscribe(userId => {
-      if(userId == this._userID)
-        this.router.navigate['userPanel'];
+      console.log(userId);
+      if (userId == this._userID)
+        this.location.back();
     });
   }
 
