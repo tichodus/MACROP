@@ -90,7 +90,7 @@ router.put("/updateTask", (req, res, next) => {
 
 router.post("/createTask", (req, res, next) => {
     let name = req.body.name;
-    let projectId = req.body.projectId;
+    let projectId = req.body.projectID;
     let responsible = req.body.responsible;
     let body = req.body.body;
     let completness = new Array();
@@ -100,11 +100,15 @@ router.post("/createTask", (req, res, next) => {
             if (erro)
                 res.send(erro);
             models.projects.findById(projectId, (err, project) => {
-                project.tasks.push(task.id);
-                project.save();
+                if (err)
+                    res.send(err);
+                else {
+                    project.tasks.push(task._id);
+                    project.save();
+                }
             });
             res.json(task);
-            io.sockets.emit('taskCreated', proj);
+            io.sockets.emit('taskCreated', task);
         });
 });
 

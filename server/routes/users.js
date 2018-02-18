@@ -50,17 +50,31 @@ router.post('/login', (req, res, next) => {
 
 router.post("/register", (req, res, next) => {
     let user = req.body;
-    console.log(user);
-    if (!user || typeof user === undefined || !user.email || !user.password) {
-        res.status(400);
-        res.json({ "error": "Bad Data" });
-    } else {
-        res.json(models.users.create({
-            "email": user.email,
-            "username": user.username,
-            "password": user.password
-        }));
-    }
+    // if (!user || typeof user === undefined || !user.email || !user.password) {
+    //     res.status(400);
+    //     res.json({ "error": "Bad Data" });
+    // } else {
+    //     res.json(models.users.create({
+    //         "email": user.email,
+    //         "username": user.username,
+    //         "password": user.password
+    //     }));
+    // }
+    models.users.find({ $or: [{ username: user.username }, { email: user.email }] }, (err, doc) => {
+        if (err)
+            res.send(err);
+        else {
+            if (doc.length)
+                res.json(doc);
+            else {
+                models.users.create({ username: user.username, email: user.email, password: user.password, isAdmin: user.isAdmin }, (erro, userdoc) => {
+                    if (erro)
+                        res.send(err);
+                    res.json(userdoc);
+                });
+            }
+        }
+    });
 });
 
 router.get("/getUser/:id", (req, res, next) => {
