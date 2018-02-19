@@ -78,15 +78,9 @@ router.put("/addUserToProject", (request, response) => {
             console.log(parti);
             parti.push(userId);
             proj.set({ participians: parti });
-            response.send(proj);
-            proj.save((err, updatedProject) => {
-                if (err)
-                    response.send(err);
-                else {
-                    response.send(updatedProject);
-                    io.emit("userAddedToProject", updatedProject);
-                }
-            });
+            proj.save();
+            response.json(proj);
+            io.emit("userAddedToProject", proj);
         }
     });
 });

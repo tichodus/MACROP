@@ -44,7 +44,7 @@ export class BoardComponent implements OnInit {
   }
 
   openProject() {
-
+    document.getElementById("main").className = "transition";
     this.router.navigate(['/taskBoard', this.id], { queryParams: { userID: this._userID, isUserProjectOwner: this.isUserOwner() } });
   }
 

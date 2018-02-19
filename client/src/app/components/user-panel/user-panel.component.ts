@@ -11,7 +11,7 @@ import { ProjectSubscriber } from '../../services/projectSubscriber.service';
   styleUrls: ['./user-panel.component.css']
 })
 export class UserPanelComponent implements OnInit {
-  page:number = 1;
+  page: number = 1;
   user: User;
   projects: Array<Project>;
   constructor(private projectSubscriber: ProjectSubscriber, private projectService: ProjectService) {
@@ -24,6 +24,12 @@ export class UserPanelComponent implements OnInit {
 
       if (!alreadyExists && (isOwner || isParticipant))
         this.projects.push(data);
+    });
+
+    this.projectSubscriber.userAddedToProject.subscribe((project: Project) => {
+      console.log(project);
+      if (project.participians.findIndex(userId => userId == this.user._id) != -1)
+        this.projects.push(project);
     });
   }
 
