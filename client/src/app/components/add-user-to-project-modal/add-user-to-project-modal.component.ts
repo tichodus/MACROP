@@ -34,6 +34,7 @@ export class AddUserToProjectModalComponent implements OnInit {
 
   addUser(user: User) {
     this._usersOnProject.push(user);
+    this._allUsers = this._allUsers.filter(_user => _user._id != user._id);
     this.projectService.addUserToProject(this.projectId, user).subscribe();
   }
 

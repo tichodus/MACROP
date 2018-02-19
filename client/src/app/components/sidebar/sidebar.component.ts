@@ -1,11 +1,11 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   @Output() sidebarClosed: EventEmitter<any>;
   @Output() onTaskCreate: EventEmitter<any>;
   @Input() projectId: string;
@@ -18,6 +18,9 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
   }
 
 
@@ -40,7 +43,7 @@ export class SidebarComponent implements OnInit {
     removeUserModal.open();
   }
 
-  addUser(addUserModal){
+  addUser(addUserModal) {
     addUserModal.open();
   }
 }

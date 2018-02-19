@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../../models/task';
 import { ProjectService } from '../../services/project.service';
@@ -7,7 +7,7 @@ import { TaskService } from '../../services/task.services';
 import { TaskSubscriber } from '../../services/taskSubscriber.service';
 import 'ng2-dnd/bundles/style.css';
 import { ProjectSubscriber } from '../../services/projectSubscriber.service';
-import { Location } from '@angular/common';
+import { Location, PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'task-board',
@@ -15,13 +15,19 @@ import { Location } from '@angular/common';
   styleUrls: ['./task-board.component.css']
 })
 export class TaskBoardComponent implements OnInit {
+  @HostListener('window:beforeunload')
+  doSomething() {
+    console.log("radi");
+  }
+
+
   private _userID: string;
   private _isProjectOwner: boolean;
   private _projectId: string;
   private _tasks: Array<Task>;
   private _sidebarOpened: boolean;
   private _createTask: boolean;
-  constructor(private location:Location,private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService, private projectSubscriber: ProjectSubscriber, private router: Router) {
+  constructor(private locationPlatform: PlatformLocation, private location: Location, private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService, private projectSubscriber: ProjectSubscriber, private router: Router) {
     this._sidebarOpened = false;
     this._isProjectOwner = false;
     this._createTask = false;
@@ -51,7 +57,10 @@ export class TaskBoardComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.locationPlatform.onPopState(() => {
+      document.getElementById("main").style.marginLeft = "0";
+      document.getElementById("main").setAttribute('class', 'no-transition');
+    });
     this.activatedRoute.queryParams.subscribe(res => {
       this._isProjectOwner = res.isUserProjectOwner;
       console.log(this._isProjectOwner);
