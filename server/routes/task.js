@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-//var mongojs = require("mongojs");
-//var db = mongojs("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", ["users"]);
 const mongoose = require('mongoose');
 const models = require('../schemas and models/data-model.js');
 var io = require('../sockets/io');

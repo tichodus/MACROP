@@ -1,9 +1,5 @@
-//import { chats } from "../schemas and models/data-model.js";
-
 const express = require("express");
 const router = express.Router();
-//var mongojs = require("mongojs");
-//var db = mongojs("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", ["users"]);
 const mongoose = require('mongoose');
 const models = require('../schemas and models/data-model.js');
 
@@ -55,16 +51,23 @@ router.post("/createProject", (req, res, next) => {
     let ownerId = req.body.ownerId;
     let participians = req.body.participians;
     let projectName = req.body.projectName;
-    models.projects.create({ name: projectName, owners: ownerId, participians: participians }, (err, proj) => {
+    let participiansIds;
+    participians.forEach(el => {
+        participiansIds.push(el._id);
+        models.roles.create({ projectID: proj._id, userID: el._id, role: el.role }, (err, doc) => {
+            if (err)
+                res.send(err);
+        });
+    });
+    models.projects.create({ name: projectName, owners: ownerId, participians: participiansIds }, (err, proj) => {
         if (err)
             res.send(err);
         else {
-            res.send(proj);
+            res.json(proj);
             io.sockets.emit('projectCreated', proj);
         }
     });
-
-})
+});
 
 router.put("/addUserToProject", (request, response) => {
     console.log(request.body);
@@ -83,7 +86,7 @@ router.put("/addUserToProject", (request, response) => {
                 if (err)
                     response.send(err);
                 else {
-                    response.send(updatedProject);
+                    response.json(updatedProject);
                     io.emit("userAddedToProject", updatedProject);
                 }
             });
@@ -141,6 +144,16 @@ router.delete("/deleteProject/:id", (req, res, next) => {
                 if (err)
                     res.json(err);
             });
+
+            models.roles.remove({ projectID: projectId }, (err, docs) => {
+                if (err)
+                    res.json(err);
+            });
+
+            models.teams.remove({ projectID: projectId }, (err, docs) => {
+                if (err)
+                    res.json(err);
+            })
             res.json(project);
             project.remove();
         }
@@ -157,6 +170,20 @@ router.put("/removeProjectUser", (req, res, next) => {
             proj.participians = proj.participians.filter(user => user != deletedUser);
             proj.save();
 
+            models.roles.remove({ $and: [{ projectID: projectId }, { userID: deletedUser }] }, (err, docs) => {
+                if (err)
+                    res.send(err);
+            });
+
+            models.teams.findOne({ $and: [{ projectID: projectId }, { members: deletedUser }] }, (err, team) => {
+                if (err)
+                    res.send(err);
+                else {
+                    team.members = team.members.filter(member => member != deletedUser);
+                    team.save();
+                }
+            });
+
             models.tasks.find({ responsible: deletedUser }, (err, task) => {
                 if (err)
                     res.send(err);
@@ -165,6 +192,7 @@ router.put("/removeProjectUser", (req, res, next) => {
                         element.responsible = element.responsible.filter(user => user != deletedUser);
                         element.save();
                     });
+                    res.json(deletedUser);
                     io.emit('userRemovedFromProject', deletedUser);
                 }
             });

@@ -9,6 +9,10 @@ var chat = require("./routes/chat");
 var project = require("./routes/project");
 var task = require("./routes/task");
 var message = require("./routes/message");
+var role = require("./routes/role");
+var team = require("./routes/team");
+var report = require("./routes/report");
+
 var app = express();
 
 var io = require('./sockets/io');
@@ -48,6 +52,9 @@ app.use('/api', chat);
 app.use('/api', project);
 app.use('/api', task);
 app.use('/api', message);
+app.use('/api', role);
+app.use('/api', team);
+app.use('/api', report);
 /*
  *STARTING SERVER
  */

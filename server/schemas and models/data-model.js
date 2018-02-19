@@ -6,7 +6,20 @@ let usersSchema = mongoose.Schema({
     email: String,
     username: String,
     password: String,
-    isAdmin: String
+});
+
+let rolesSchema = mongoose.Schema({
+    projectID: String,
+    userID: String,
+    role: String
+});
+
+let teamsSchema = mongoose.Schema({
+    projectID: String,
+    name: String,
+    leader: String,
+    tasks: [],
+    members: []
 });
 
 let tasksSchema = mongoose.Schema({
@@ -22,6 +35,8 @@ let projectSchema = mongoose.Schema({
     owners: [],
     tasks: [],
     participians: [],
+    teams: [],
+    reports: []
 });
 
 let chatSchema = mongoose.Schema({
@@ -34,8 +49,19 @@ let messageSchema = mongoose.Schema({
     chatID: String
 });
 
+let reportsSchema = mongoose.Schema({
+    name: String,
+    owner: String,
+    type: String,
+    reports: [],
+    data: String
+});
+
 exports.users = mongoose.model("users", usersSchema);
 exports.tasks = mongoose.model("tasks", tasksSchema);
 exports.projects = mongoose.model("projects", projectSchema);
 exports.chats = mongoose.model("chat", chatSchema);
 exports.messages = mongoose.model("messages", messageSchema);
+exports.roles = mongoose.model("roles", rolesSchema);
+exports.teams = mongoose.model("teams", teamsSchema);
+exports.reports = mongoose.model("reports", reportsSchema);
