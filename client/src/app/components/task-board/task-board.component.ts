@@ -57,6 +57,7 @@ export class TaskBoardComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log('radi');
     this.locationPlatform.onPopState(() => {
       document.getElementById("main").style.marginLeft = "0";
       document.getElementById("main").setAttribute('class', 'no-transition');

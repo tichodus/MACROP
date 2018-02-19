@@ -14,12 +14,12 @@
                 <th>Add</th>
               </tr>
             </thead>
-            <tbody *ngIf='this._allUsers'>
-              <tr *ngFor='let user of this._allUsers | paginate: {itemsPerPage:4,currentPage:page}'>
+            <tbody *ngIf='this._users'>
+              <tr *ngFor='let user of this._users | paginate: {itemsPerPage:4,currentPage:page}'>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
                 <td>
-                  <button (click)='addUser(user)' class='btn btn-success btn-md'>
+                  <button (click)='onUserActionHandler(user)' class='btn btn-success btn-md'>
                     <strong>+</strong>
                   </button>
                 </td>

@@ -6,5 +6,5 @@
   <a href="javascript:void(0)">View progress</a>
 </div>
 
-<add-or-remove-user-modal #removeUserModal [projectId]='this.projectId'></add-or-remove-user-modal>
-<add-user-to-project-modal #addUserModal [projectId]='this.projectId'></add-user-to-project-modal>
+<add-or-remove-user-modal (userActionEvent)='addUserModal.update($event)' #removeUserModal [projectId]='this.projectId'></add-or-remove-user-modal>
+<add-user-to-project-modal (userActionEvent)='removeUserModal.update($event)' #addUserModal [projectId]='this.projectId'></add-user-to-project-modal>

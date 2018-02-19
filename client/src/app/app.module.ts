@@ -36,6 +36,8 @@ import {ModalModule} from 'angular-custom-modal';
 import { AddOrRemoveUserModalComponent } from './components/add-or-remove-user.modal/add-or-remove-user.modal.component';
 import { AddUserToProjectModalComponent } from './components/add-user-to-project-modal/add-user-to-project-modal.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

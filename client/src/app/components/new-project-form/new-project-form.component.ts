@@ -7,6 +7,7 @@ import { RequestService } from '../../services/requestService.service';
 import * as Socket from 'socket.io-client';
 import { ProjectSubscriber } from '../../services/projectSubscriber.service';
 import { Router } from '@angular/router';
+import { Roles } from '../../models/enums/roles';
 
 @Component({
   selector: 'app-new-project-form',
@@ -19,11 +20,26 @@ export class NewProjectFormComponent implements OnInit {
   participans: Array<User>;
   projectName: string;
   errorFlag: boolean;
+  roles: Array<any>;
+  rolesKeys: Array<any>;
+  Roles;
   private socket;
   constructor(private userService: UsersService, private requestService: RequestService, private router: Router) {
     this.participans = new Array<User>();
     this.loggedUser = JSON.parse(UserSession.getUserFromStorage());
     this.errorFlag = false;
+
+    this.roles = this.roleEnumToArray();
+
+    this.rolesKeys = Object.keys(this.roles);
+
+  }
+
+  roleEnumToArray() {
+    let keys = Object.keys(Roles);
+    let values = [];
+    keys.forEach(key => values[key] = Roles[key]);
+    return values;
   }
 
   createProject(name: string) {
@@ -50,7 +66,7 @@ export class NewProjectFormComponent implements OnInit {
     this.participans.forEach(participant => participans.push(participant._id));
     return {
       ownerId: [this.loggedUser._id],
-      participians: participans,
+      participians: this.participans,
       projectName: name
     }
   }
@@ -63,9 +79,10 @@ export class NewProjectFormComponent implements OnInit {
     return isParticipant;
   }
 
-  addParticipant(user) {
+  addParticipant(user: User, role: string) {
     if (!user || this.isUserParticipant(user))
       return;
+    user.role = role;
     this.participans.push(user);
     console.log(this.participans);
   }

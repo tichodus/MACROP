@@ -55,7 +55,11 @@ router.post("/createProject", (req, res, next) => {
     let ownerId = req.body.ownerId;
     let participians = req.body.participians;
     let projectName = req.body.projectName;
-    models.projects.create({ name: projectName, owners: ownerId, participians: participians }, (err, proj) => {
+    let participantIds = new Array();
+    participians.forEach(participant => {
+        participantIds.push(participant._id);
+    });
+    models.projects.create({ name: projectName, owners: ownerId, participians: participantIds }, (err, proj) => {
         if (err)
             res.send(err);
         else {
@@ -159,6 +163,7 @@ router.put("/removeProjectUser", (req, res, next) => {
                         element.responsible = element.responsible.filter(user => user != deletedUser);
                         element.save();
                     });
+                    res.json(deletedUser);
                     io.emit('userRemovedFromProject', deletedUser);
                 }
             });
