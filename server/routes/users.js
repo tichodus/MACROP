@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-//var mongojs = require("mongojs");
-//var db = mongojs("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", ["users"]);
 const mongoose = require('mongoose');
 const models = require('../schemas and models/data-model.js');
 
@@ -9,7 +7,6 @@ mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", {
     useMongoClient: true,
 });
-
 
 router.get("/getAllUsers", (req, res, next) => {
     models.users.find((err, docs) => {
@@ -50,16 +47,6 @@ router.post('/login', (req, res, next) => {
 
 router.post("/register", (req, res, next) => {
     let user = req.body;
-    // if (!user || typeof user === undefined || !user.email || !user.password) {
-    //     res.status(400);
-    //     res.json({ "error": "Bad Data" });
-    // } else {
-    //     res.json(models.users.create({
-    //         "email": user.email,
-    //         "username": user.username,
-    //         "password": user.password
-    //     }));
-    // }
     models.users.find({ $or: [{ username: user.username }, { email: user.email }] }, (err, doc) => {
         if (err)
             res.send(err);
@@ -67,7 +54,8 @@ router.post("/register", (req, res, next) => {
             if (doc.length)
                 res.json(doc);
             else {
-                models.users.create({ username: user.username, email: user.email, password: user.password, isAdmin: user.isAdmin }, (erro, userdoc) => {
+                models
+                models.users.create({ username: user.username, email: user.email, password: user.password }, (erro, userdoc) => {
                     if (erro)
                         res.send(err);
                     res.json(userdoc);
