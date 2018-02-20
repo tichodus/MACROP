@@ -24,12 +24,13 @@ export class AddUserToTaskModalComponent extends UserModalDialogComponent implem
   private _user: User;
   private _task: Task;
   private _roles: Array<Role>;
-
+  private _availableUsersForAdding: Array<User>;
   constructor(private projectService: ProjectService, private userService: UsersService, private taskService: TaskService, private taskSubscriber: TaskSubscriber) {
     super();
     this._user = JSON.parse(UserSession.getUserFromStorage());
+    this._availableUsersForAdding = new Array();
     this.taskSubscriber.taskSubscriber.subscribe((task: Task) => {
-      if (task._id == this._task._id)
+      if (task && task._id == this._task._id)
         this._task = task;
     });
   }
@@ -47,7 +48,7 @@ export class AddUserToTaskModalComponent extends UserModalDialogComponent implem
 
   protected userAction(user: User) {
     this._task.responsible.push(user._id);
-    this._users = this._users.filter(_user => _user._id != user._id);
+    this._availableUsersForAdding = this._users.filter(_user => _user._id != user._id && _user._id != this._user._id);
     this.taskService.updateTask(this._task).subscribe((res) => {
       console.log(res);
     });
@@ -59,9 +60,9 @@ export class AddUserToTaskModalComponent extends UserModalDialogComponent implem
   }
 
   setTask(task: Task) {
-      this._task = task;
-      this._users = this._users.filter(user => this._task.responsible.findIndex(_userId => _userId == user._id) == -1);
-      this.open();
+    this._task = task;
+    this._availableUsersForAdding = this._users.filter(user => this._task.responsible.findIndex(_userId => _userId == user._id) == -1);
+    this.open();
   }
 
   update(user: User) {
