@@ -35,10 +35,11 @@ export class TaskBoardComponent implements OnInit {
     this.taskSubscriber.taskSubscriber.subscribe((task: Task) => {
       let alreadyExists = false;
       console.log(task);
-      this._tasks.forEach(_task => {
-        if (task._id == _task._id)
-          alreadyExists = true;
-      });
+      if (this._tasks)
+        this._tasks.forEach(_task => {
+          if (task._id == _task._id)
+            alreadyExists = true;
+        });
 
       if (alreadyExists) {
         let taskIndex = this._tasks.findIndex(_task => task._id == _task._id);
@@ -83,9 +84,9 @@ export class TaskBoardComponent implements OnInit {
     });
   }
 
-  addUserToTask(addUserToTaskModal,task:Task) {
+  addUserToTask(addUserToTaskModal, task: Task) {
     addUserToTaskModal.setTask(task);
-    addUserToTaskModal.open();
+    console.log(task);
   }
 
   setTaskFinished(task: Task, subTaskIndex: number) {
