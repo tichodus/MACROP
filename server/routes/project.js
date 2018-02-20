@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require('mongoose');
 const models = require('../schemas and models/data-model.js');
+var app = express();
 
 var http = require("http").Server(router);
 var io = require('../sockets/io');
@@ -10,9 +11,6 @@ mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", {
     useMongoClient: true,
 });
-
-
-var app = express();
 
 
 
@@ -59,14 +57,18 @@ router.post("/createProject", (req, res, next) => {
     models.projects.create({ name: projectName, owners: ownerId, participians: participiansIds }, (err, proj) => {
         if (err)
             res.send(err);
-        else {    
+        else {
             participians.forEach(el => {
                 models.roles.create({ projectID: proj._id, userID: el._id, role: el.role }, (err, doc) => {
                     if (err)
                         res.send(err);
                 });
             });
-            models.chats.create({projectID: proj._id}, (err, doc) =>{
+            models.roles.create({ projectID: proj._id, userID: ownerId, role: "owner" }, (err, doc) => {
+                if (err)
+                    res.send(err);
+            });
+            models.chats.create({ projectID: proj._id }, (err, doc) => {
                 if (err)
                     res.send(err);
             });
