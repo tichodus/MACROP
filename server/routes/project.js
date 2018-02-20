@@ -51,18 +51,25 @@ router.post("/createProject", (req, res, next) => {
     let ownerId = req.body.ownerId;
     let participians = req.body.participians;
     let projectName = req.body.projectName;
-    let participiansIds;
+    let participiansIds = [];
     participians.forEach(el => {
         participiansIds.push(el._id);
-        models.roles.create({ projectID: proj._id, userID: el._id, role: el.role }, (err, doc) => {
-            if (err)
-                res.send(err);
-        });
+
     });
     models.projects.create({ name: projectName, owners: ownerId, participians: participiansIds }, (err, proj) => {
         if (err)
             res.send(err);
-        else {
+        else {    
+            participians.forEach(el => {
+                models.roles.create({ projectID: proj._id, userID: el._id, role: el.role }, (err, doc) => {
+                    if (err)
+                        res.send(err);
+                });
+            });
+            models.chats.create({projectID: proj._id}, (err, doc) =>{
+                if (err)
+                    res.send(err);
+            });
             res.json(proj);
             io.sockets.emit('projectCreated', proj);
         }
@@ -173,8 +180,10 @@ router.put("/removeProjectUser", (req, res, next) => {
                 if (err)
                     res.send(err);
                 else {
-                    team.members = team.members.filter(member => member != deletedUser);
-                    team.save();
+                    if (team) {
+                        team.members = team.members.filter(member => member != deletedUser);
+                        team.save();
+                    }
                 }
             });
 

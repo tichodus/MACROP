@@ -35,6 +35,7 @@ import { EmptyTaskComponent } from './components/empty-task/empty-task.component
 import {ModalModule} from 'angular-custom-modal';
 import { AddOrRemoveUserModalComponent } from './components/add-or-remove-user.modal/add-or-remove-user.modal.component';
 import { AddUserToProjectModalComponent } from './components/add-user-to-project-modal/add-user-to-project-modal.component';
+import { AddUserToTaskModalComponent } from './components/add-user-to-task-modal/add-user-to-task-modal.component';
 
 
 
@@ -56,6 +57,7 @@ import { AddUserToProjectModalComponent } from './components/add-user-to-project
     EmptyTaskComponent,
     AddOrRemoveUserModalComponent,
     AddUserToProjectModalComponent,
+    AddUserToTaskModalComponent,
   ],
   imports: [
     ModalModule,

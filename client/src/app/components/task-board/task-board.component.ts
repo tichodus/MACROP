@@ -27,6 +27,7 @@ export class TaskBoardComponent implements OnInit {
   private _tasks: Array<Task>;
   private _sidebarOpened: boolean;
   private _createTask: boolean;
+  private _role: string;
   constructor(private locationPlatform: PlatformLocation, private location: Location, private taskSubscriber: TaskSubscriber, private activatedRoute: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService, private projectSubscriber: ProjectSubscriber, private router: Router) {
     this._sidebarOpened = false;
     this._isProjectOwner = false;
@@ -66,6 +67,7 @@ export class TaskBoardComponent implements OnInit {
       this._isProjectOwner = res.isUserProjectOwner;
       console.log(this._isProjectOwner);
       this._userID = res.userID;
+      this._role = res.role;
     });
 
     this.activatedRoute.params.subscribe(res => {
@@ -79,6 +81,11 @@ export class TaskBoardComponent implements OnInit {
 
       });
     });
+  }
+
+  addUserToTask(addUserToTaskModal,task:Task) {
+    addUserToTaskModal.setTask(task);
+    addUserToTaskModal.open();
   }
 
   setTaskFinished(task: Task, subTaskIndex: number) {

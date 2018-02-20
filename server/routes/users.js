@@ -29,7 +29,6 @@ router.get("/userSearch/:username", (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
     let user = req.body;
-    console.log(user);
     if (!user || typeof user === undefined || !user.password) {
         res.status(400);
         res.json({ "error": "Bad Data" });
@@ -40,6 +39,7 @@ router.post('/login', (req, res, next) => {
         }, (err, user) => {
             if (err)
                 res.send(err);
+            console.log(user);
             res.json(user);
         });
     }

@@ -1,0 +1,40 @@
+<modal #addUserToTaskModal>
+  <ng-template #modalHeader>
+    <h2>Add users to task</h2>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class='row'>
+      <div class='col-xs-12 col-sm-12 col-md-12'>
+        <div class="table-responsive">
+          <table class='table table-striped'>
+            <thead>
+              <tr>
+                <td>Username</td>
+                <td>Role</td>
+                <td>Add</td>
+              </tr>
+            </thead>
+            <tbody *ngIf='this._users'>
+              <tr *ngFor='let user of this._users | paginate: {itemsPerPage:4,currentPage:page}'>
+                <td>
+                  <span id='username'>{{user.username}}</span>
+                </td>
+                <td>
+                  <span id='role'>{{this.getRoleForSpecificUser(user)}}</span>
+                </td>
+                <td>
+                  <button (click)='onUserActionHandler(user)' class='btn btn-success btn-md'>
+                    <strong>+</strong>
+                  </button>
+                </td>
+              </tr>
+              <div class='paginator col-xs-12 col-sm-12 col-md-12'>
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+              </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</modal>

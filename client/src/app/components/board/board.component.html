@@ -5,7 +5,7 @@
       <p class="card-text">Number of participans: {{_project.participians.length + _project.owners.length}}</p>
       <label *ngIf="isUserOwner()" class='alert alert-success'>User status: <strong>Owner</strong></label>
       <label *ngIf="!isUserOwner()" class='alert alert-info'>User status:
-        <strong>Participant</strong>
+        <strong>{{role}}</strong>
       </label>
       <button  class="btn btn-primary" (click)='openProject()'>Open project</button>
     </div>

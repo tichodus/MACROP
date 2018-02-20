@@ -32,6 +32,27 @@ router.get("/getRolesForUsersOnProject/:id", (req, res, next) => {
 });
 
 router.post("/getRoleForUserOnProject", (req, res, next) => {
+    let projectId = req.body.projectId;
+    let userId = req.body.userId
+    models.roles.findOne({ projectID: projectId, userID: userId }, (err, docs) => {
+        if (err)
+            res.send(err);
+        else
+            res.json(docs);
+    });
+});
+
+router.get("/getRolesForUser/:id", (req, res, next) => {
+    let userId = req.params.id;
+    models.roles.find({ userID: userId }, (err, docs) => {
+        if (err)
+            res.send(err);
+        else
+            res.json(docs);
+    });
+});
+
+router.post("/getRoleForUserOnProject", (req, res, next) => {
     let userId = req.body.userId;
     let projectId = req.body.projectId;
     models.roles.find({ $and: [{ projectID: projectId }, { userID: userId }] }, (err, docs) => {
