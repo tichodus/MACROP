@@ -33,20 +33,16 @@ export class AddUserToTaskModalComponent extends UserModalDialogComponent implem
         this._task = task;
     });
   }
-  
+
   protected initUsers() {
-    console.log('uso');
     this.projectService.getUsersOnProject(this.projectId).subscribe(users => {
       this._users = users.json();
-      this.userService.getAllUsers().subscribe(allUsers => {
-        this._users = allUsers.json();
-        this.projectService.getRolesForProject(this.projectId).subscribe(roles => {
-          this._roles = roles.json();
-        })
+      this.projectService.getRolesForProject(this.projectId).subscribe(roles => {
+        this._roles = roles.json();
       });
     });
 
-
+    return new Promise((resolve, reject) => { resolve() });
   }
 
   protected userAction(user: User) {
@@ -63,8 +59,9 @@ export class AddUserToTaskModalComponent extends UserModalDialogComponent implem
   }
 
   setTask(task: Task) {
-    this._task = task;
-    this._users = this._users.filter(user => this._task.responsible.findIndex(_userId => _userId == user._id) == -1);
+      this._task = task;
+      this._users = this._users.filter(user => this._task.responsible.findIndex(_userId => _userId == user._id) == -1);
+      this.open();
   }
 
   update(user: User) {
