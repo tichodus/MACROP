@@ -11,20 +11,18 @@ mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", {
     useMongoClient: true,
 });
-mongodb: //<dbuser>:<dbpassword>@ds129156.mlab.com:29156/macrop
-    mongodb: //stefan:stefan281195@ds129156.mlab.com:29156/macrop
 
 
 
 
-    router.get("/getAllProjects", (req, res, next) => {
-        models.projects.find((err, project) => {
-            if (err)
-                res.send(err);
-            res.json(project);
-            io.emit("customEvent", null);
-        })
+router.get("/getAllProjects", (req, res, next) => {
+    models.projects.find((err, project) => {
+        if (err)
+            res.send(err);
+        res.json(project);
+        io.emit("customEvent", null);
     })
+})
 
 router.get("/getProjects/:id", (req, res, next) => {
     let userId = req.params.id;
@@ -59,14 +57,18 @@ router.post("/createProject", (req, res, next) => {
     models.projects.create({ name: projectName, owners: ownerId, participians: participiansIds }, (err, proj) => {
         if (err)
             res.send(err);
-        else {    
+        else {
             participians.forEach(el => {
                 models.roles.create({ projectID: proj._id, userID: el._id, role: el.role }, (err, doc) => {
                     if (err)
                         res.send(err);
                 });
             });
-            models.chats.create({projectID: proj._id}, (err, doc) =>{
+            models.roles.create({ projectID: proj._id, userID: ownerId, role: "owner" }, (err, doc) => {
+                if (err)
+                    res.send(err);
+            });
+            models.chats.create({ projectID: proj._id }, (err, doc) => {
                 if (err)
                     res.send(err);
             });
