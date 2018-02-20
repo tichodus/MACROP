@@ -24,9 +24,21 @@ export class UsersService {
         return this.requestService.createPostRequestHeader(user, 'register');
     }
 
-    getAllUsers(){
-        return this.requestService.createGetRequestHeader(null,'getAllUsers');
+    getAllUsers() {
+        return this.requestService.createGetRequestHeader(null, 'getAllUsers');
     }
 
+
+    getRolesForUser(userId: string) {
+        return this.requestService.createGetRequestHeader(userId, 'getRolesForUser');
+    }
+
+    getRoleForUser(userId: string, projectId: string) {
+        let requestObject = {
+            userId: userId,
+            projectId: projectId
+        }
+        return this.requestService.createPostRequestHeader(requestObject, 'getRoleForUserOnProject');
+    }
 
 }

@@ -38,4 +38,8 @@ export class ProjectService {
 
         return this.requestService.createPutRequestHeader(requestObejct, 'addUserToProject');
     }
+
+    getRolesForProject(projectId:string){
+        return this.requestService.createGetRequestHeader(projectId,'getRolesForUsersOnProject');
+    }
 }

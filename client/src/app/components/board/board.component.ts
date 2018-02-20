@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 })
 export class BoardComponent implements OnInit {
   @Input() id: string;
-  private  _picture: string;
+  @Input() role: string;
+  private _picture: string;
   private _numberOfTasks: number;
   private _isClicked: boolean;
   private _project: Project;
@@ -45,7 +46,8 @@ export class BoardComponent implements OnInit {
 
   openProject() {
     document.getElementById("main").className = "transition";
-    this.router.navigate(['/taskBoard', this.id], { queryParams: { userID: this._userID, isUserProjectOwner: this.isUserOwner() } });
+    console.log(this.role);
+    this.router.navigate(['/taskBoard', this.id], { queryParams: { role: this.role || 'owner', userID: this._userID, isUserProjectOwner: this.isUserOwner() } });
   }
 
 }

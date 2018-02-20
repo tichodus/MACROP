@@ -3,7 +3,7 @@
   <a href="javascript:void(0)" (click)='createTask()'>Create New Task</a>
   <a href="javascript:void(0)" (click)='addUser(addUserModal)'>Add user to Project</a>
   <a href="javascript:void(0)" (click)='removeUser(removeUserModal)'>Remove user from Project</a>
-  <a href="javascript:void(0)">View progress</a>
+  <!-- <a href="javascript:void(0)">View progress</a> -->
 </div>
 
 <add-or-remove-user-modal (userActionEvent)='addUserModal.update($event)' #removeUserModal [projectId]='this.projectId'></add-or-remove-user-modal>
