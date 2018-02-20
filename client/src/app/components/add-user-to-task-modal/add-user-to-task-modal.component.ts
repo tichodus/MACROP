@@ -30,7 +30,7 @@ export class AddUserToTaskModalComponent extends UserModalDialogComponent implem
     this._user = JSON.parse(UserSession.getUserFromStorage());
     this._availableUsersForAdding = new Array();
     this.taskSubscriber.taskSubscriber.subscribe((task: Task) => {
-      if (task && task._id == this._task._id)
+      if (!this._task || task._id == this._task._id)
         this._task = task;
     });
   }

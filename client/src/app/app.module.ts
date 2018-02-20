@@ -29,14 +29,20 @@ import { TaskSubscriber } from './services/taskSubscriber.service';
 import { ChatComponentComponent } from './components/chat-component/chat-component.component';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { DragScrollModule } from 'ngx-drag-scroll';
-import {DndModule} from 'ng2-dnd';
+import { DndModule } from 'ng2-dnd';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { EmptyTaskComponent } from './components/empty-task/empty-task.component';
-import {ModalModule} from 'angular-custom-modal';
+import { ModalModule } from 'angular-custom-modal';
 import { AddOrRemoveUserModalComponent } from './components/add-or-remove-user.modal/add-or-remove-user.modal.component';
 import { AddUserToProjectModalComponent } from './components/add-user-to-project-modal/add-user-to-project-modal.component';
 import { AddUserToTaskModalComponent } from './components/add-user-to-task-modal/add-user-to-task-modal.component';
-
+import { UserReportComponent } from './components/user-report/user-report.component';
+import { TeamReportComponent } from './components/team-report/team-report.component';
+import { ProjectReportComponent } from './components/project-report/project-report.component';
+import { ReportComponent } from './components/report/report.component';
+import "froala-editor/js/froala_editor.pkgd.min.js";
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { ReportService } from './services/report.service';
 
 
 @NgModule({
@@ -58,8 +64,14 @@ import { AddUserToTaskModalComponent } from './components/add-user-to-task-modal
     AddOrRemoveUserModalComponent,
     AddUserToProjectModalComponent,
     AddUserToTaskModalComponent,
+    UserReportComponent,
+    TeamReportComponent,
+    ProjectReportComponent,
+    ReportComponent,
   ],
   imports: [
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
     ModalModule,
     DndModule.forRoot(),
     DragScrollModule,
@@ -77,10 +89,11 @@ import { AddUserToTaskModalComponent } from './components/add-user-to-task-modal
       { path: 'signUp', component: SignUpComponent, pathMatch: 'full' },
       { path: 'userPanel', component: UserPanelComponent, pathMatch: 'full' },
       { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' },
-      { path: 'taskBoard/:id', component: TaskBoardComponent,pathMatch:'full' }, 
+      { path: 'taskBoard/:id', component: TaskBoardComponent, pathMatch: 'full' },
+      { path: 'report/:role', component: ReportComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [TaskSubscriber,TaskService,UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
+  providers: [ReportService,TaskSubscriber, TaskService, UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sidebar',
@@ -9,9 +10,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @Output() sidebarClosed: EventEmitter<any>;
   @Output() onTaskCreate: EventEmitter<any>;
   @Input() projectId: string;
+  @Input() role: string;
   private _removeUser: boolean;
 
-  constructor() {
+  constructor(private router: Router) {
     this._removeUser = false;
     this.sidebarClosed = new EventEmitter();
     this.onTaskCreate = new EventEmitter();
@@ -46,5 +48,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
   addUser(addUserModal) {
     addUserModal.open();
   }
+
+  openReport() {
+    document.getElementById("main").style.marginLeft = '0';
+    document.getElementById("main").className = 'no-transition';
+    this.router.navigate(['/report', this.role], { queryParams: { projectId: this.projectId } });
+  }
+
+
 }
 

@@ -37,6 +37,8 @@ export class NavbarComponent implements OnInit {
     window.localStorage.clear();
     this.userSessionSubject.update();
     this._isLogged = false;
+    document.getElementById("main").style.marginLeft = '0';
+    document.getElementById("main").className = 'no-transition';
     this.router.navigate(['login']);
 
   }

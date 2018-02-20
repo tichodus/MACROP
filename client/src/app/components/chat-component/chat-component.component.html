@@ -1,31 +1,5 @@
 <div class='container'>
   <div class='row'>
-    <div *ngIf='this._project' class='col-sm-12 col-sm-3 col-md-3'>
-
-      <div *ngIf='!this._isCollapsed' (click)='chatCollapse()' class='chat-header row'>
-        <div class='col-xs-6 col-sm-6 col-md-6'>
-          <div class='project-name btn btn-lg btn-link'>{{this._project.name}}</div>
-        </div>
-        <div class='col-xs-6 col-sm-6 col-md-6'>
-          <button *ngIf='!this._isCollapsed' class='btn-collapse btn btn-link btn-lg pull-right'>
-            <i class="fa fa-caret-up"></i>
-          </button>
-        </div>
-      </div>
-
-      <div *ngIf='this._isCollapsed' (click)='chatExpand()' class='chat-header row'>
-        <div class='col-xs-6 col-sm-6 col-md-6'>
-          <div class='project-name btn btn-lg btn-link'>{{this._project.name}}</div>
-        </div>
-        <div class='col-xs-6 col-sm-6 col-md-6'>
-          <button *ngIf='this._isCollapsed' class='btn-collapse btn btn-link btn-lg pull-right'>
-            <i class="fa fa-caret-down"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class='row'>
     <div *ngIf='!this._isCollapsed' class='messages'>
       <div #chatDiv class='chat__div'>
         <div *ngFor='let message of this._messages'>
@@ -46,6 +20,33 @@
       <div class='chat__input--container'>
         <div class='form-group'>
           <textarea type='text-content' (keyup)='sendMessage(chatInput,$event)' #chatInput placeholder="Send message..." class='form-control'></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div *ngIf='this._project' class='col-sm-12 col-sm-3 col-md-3'>
+
+      <div *ngIf='!this._isCollapsed' (click)='chatCollapse()' class='chat-header row'>
+        <div class='col-xs-6 col-sm-6 col-md-6'>
+          <div class='project-name btn btn-lg btn-link'>{{this._project.name}}</div>
+        </div>
+        <div class='col-xs-6 col-sm-6 col-md-6'>
+          <button *ngIf='!this._isCollapsed' class='btn-collapse btn btn-link btn-lg pull-right'>
+            <i class="fa fa-caret-down"></i>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf='this._isCollapsed' (click)='chatExpand()' class='chat-header row'>
+        <div class='col-xs-6 col-sm-6 col-md-6'>
+          <div class='project-name btn btn-lg btn-link'>{{this._project.name}}</div>
+        </div>
+        <div class='col-xs-6 col-sm-6 col-md-6'>
+          <button *ngIf='this._isCollapsed' class='btn-collapse btn btn-link btn-lg pull-right'>
+            <i class="fa fa-caret-up"></i>
+          </button>
         </div>
       </div>
     </div>

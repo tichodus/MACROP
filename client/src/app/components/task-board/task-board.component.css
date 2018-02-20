@@ -72,3 +72,8 @@ span{
     display: inherit;
 }
 
+.chat-fixed{
+    position: fixed;
+    right:0;
+    bottom:0;
+}

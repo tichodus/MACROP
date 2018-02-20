@@ -1,9 +1,9 @@
 <div>
-  <sidebar [projectId]='_projectId' #sidebar (onTaskCreate)='this._createTask = true' (sidebarClosed)='this._sidebarOpened=false'></sidebar>
+  <sidebar [projectId]='_projectId' #sidebar (onTaskCreate)='this._createTask = true' [role]='this._role' (sidebarClosed)='this._sidebarOpened=false'></sidebar>
 </div>
 
 <div dragScroll class='task-panel'>
-  <div *ngIf='this._isProjectOwner === "true"'>
+  <div>
     <div *ngIf='!this._sidebarOpened'>
       <span style="margin-left:5px; font-size:30px;cursor:pointer" (click)="openSidebar(sidebar)">&#9776;</span>
     </div>
@@ -67,7 +67,7 @@
       </div>
     </div>
   </div>
-  <div class=''>
+  <div class='chat-fixed'>
     <div class='float-right'>
       <chat></chat>
     </div>
