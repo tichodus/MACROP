@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require('mongoose');
 const models = require('../schemas and models/data-model.js');
+var app = express();
 
 var http = require("http").Server(router);
 var io = require('../sockets/io');
@@ -10,21 +11,20 @@ mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", {
     useMongoClient: true,
 });
+mongodb: //<dbuser>:<dbpassword>@ds129156.mlab.com:29156/macrop
+    mongodb: //stefan:stefan281195@ds129156.mlab.com:29156/macrop
 
 
-var app = express();
 
 
-
-
-router.get("/getAllProjects", (req, res, next) => {
-    models.projects.find((err, project) => {
-        if (err)
-            res.send(err);
-        res.json(project);
-        io.emit("customEvent", null);
+    router.get("/getAllProjects", (req, res, next) => {
+        models.projects.find((err, project) => {
+            if (err)
+                res.send(err);
+            res.json(project);
+            io.emit("customEvent", null);
+        })
     })
-})
 
 router.get("/getProjects/:id", (req, res, next) => {
     let userId = req.params.id;
