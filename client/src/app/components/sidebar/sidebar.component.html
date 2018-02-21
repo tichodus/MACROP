@@ -1,6 +1,7 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   <div *ngIf='this.role =="owner"'>
+    <a href='javascript:void(0)' (click)='createTeam(createTeamModal)'>Create Team</a>
     <a href="javascript:void(0)" (click)='createTask()'>Create New Task</a>
     <a href="javascript:void(0)" (click)='addUser(addUserModal)'>Add user to Project</a>
     <a href="javascript:void(0)" (click)='removeUser(removeUserModal)'>Remove user from Project</a>
@@ -12,12 +13,8 @@
   <a href="javascript:void(0)" (click)='openReport()'>Open report</a>
   <!-- <a href="javascript:void(0)">View progress</a> -->
 
-
-
-  <team-report #teamReportModal></team-report>
-  <project-report #projectReportModal></project-report>
-
 </div>
 
 <add-or-remove-user-modal (userActionEvent)='addUserModal.update($event)' #removeUserModal [projectId]='this.projectId'></add-or-remove-user-modal>
 <add-user-to-project-modal (userActionEvent)='removeUserModal.update($event)' #addUserModal [projectId]='this.projectId'></add-user-to-project-modal>
+<create-team-modal #createTeamModal (userActionEvent)='createTeamModal.update($event)' [projectId]='this.projectId'></create-team-modal>

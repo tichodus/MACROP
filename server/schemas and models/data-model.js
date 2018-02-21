@@ -54,7 +54,8 @@ let reportsSchema = mongoose.Schema({
     owner: String,
     type: String,
     reports: [],
-    data: String
+    data: String,
+    projectID:String
 });
 
 exports.users = mongoose.model("users", usersSchema);

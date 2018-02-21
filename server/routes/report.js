@@ -10,9 +10,10 @@ mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop",
 });
 
 router.post("/getReport", (req, res, next) => {
-    let owner = req.body.owner;
+    let owner = req.body.ownerId;
     let projectId = req.body.projectId;
     let name = req.body.name;
+    console.log(req.body);
     models.reports.findOne({ name: name, owner: owner, projectID: projectId }, (err, doc) => {
         if (err)
             res.send(err);
@@ -29,6 +30,7 @@ router.post("/createReport", (req, res, next) => {
     let reports = req.body.reports;
     let data = req.body.data;
     let projectId = req.body.projectId;
+    console.log(req.body);
     models.reports.create({ name: name, owner: owner, type: type, reports: reports, data: data, projectID: projectId }, (err, doc) => {
         if (err)
             res.send(err);
@@ -40,11 +42,14 @@ router.post("/createReport", (req, res, next) => {
 router.put("/updateReport", (req, res, next) => {
     let reportId = req.body.reportId;
     let name = req.body.name;
-    let owner = req.body.owner;
+    let owner = req.body.ownerId;
     let type = req.body.type;
     let reports = req.body.reports;
     let data = req.body.data;
     let projectId = req.body.projectId;
+
+
+    console.log(req.body);
     models.reports.findById(reportId, (err, doc) => {
         if (err)
             res.send(err);
