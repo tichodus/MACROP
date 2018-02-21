@@ -1,1 +1,32 @@
-project
+<div class="wrapper">
+  <div class='container'>
+    <div class='row'>
+      <div *ngIf='this._projectReports' class='col-xs-12 col-sm-12 col-md-12 '>
+        <table class='table table-striped'>
+          <thead>
+            <tr>
+              <th>Report name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let report of this._projectReports | paginate: {itemsPerPage:9,currentPage:page} '>
+              <td>
+                {{report.name}}'s report
+              </td>
+              <td>
+                <span>{{report.owner}}</span>
+              </td>
+              <td>
+                <button (click)='openReport(report)' class='btn btn-success btn-lg'>Open</button>
+              </td>
+            </tr>
+
+            <div class='paginator col-xs-12 col-sm-12 col-md-12'>
+              <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

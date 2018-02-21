@@ -68,7 +68,7 @@ router.post("/createReport", (req, res, next) => {
                 if (err)
                     res.send(err);
                 else {
-                    // console.log(team);
+                  //  if (team == null) return;
                     models.reports.findOne({
                         $and: [{ owner: team.leader },
                         { projectID: projectId }
@@ -92,8 +92,32 @@ router.post("/createReport", (req, res, next) => {
                                 }, (err, teamLeaderReport) => {
                                     if (err)
                                         res.send(err);
-                                    // else
-                                    // console.log(teamLeaderReport);
+                                    else {
+                                        models.reports.findOne({ $and: [{ type: "projectReport" }, { projectID: projectId }] }, (err, prorep) => {
+                                            if (err)
+                                                res.send(err);
+                                            else {
+                                                console.log(teamLeaderReport);
+                                                if (prorep != null) {
+                                                    prorep.reports.push(teamLeaderReport.id);
+                                                    prorep.save();
+                                                }
+                                                else {
+                                                    models.reports.create({
+                                                        name: "",
+                                                        owner: "",
+                                                        type: "projectReport",
+                                                        reports: [teamLeaderReport.id],
+                                                        data: "",
+                                                        projectID: projectId
+                                                    }, (err, projrep) => {
+                                                        if (err)
+                                                            res.send(err);
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
                                 });
                             }
                         }

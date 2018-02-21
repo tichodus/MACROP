@@ -47,6 +47,7 @@ import { CreateTeamModalComponent } from './components/create-team-modal/create-
 import { TeamService } from './services/team.service';
 import { OpenedReportComponent } from './components/opened-report/opened-report.component';
 import { ReportSubscriberService } from './services/reportSubscriber.service';
+import { TeamReportOpenedComponent } from './components/team-report-opened/team-report-opened.component';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { ReportSubscriberService } from './services/reportSubscriber.service';
     ReportComponent,
     CreateTeamModalComponent,
     OpenedReportComponent,
+    TeamReportOpenedComponent,
   ],
   imports: [
     FroalaEditorModule.forRoot(),
@@ -97,7 +99,8 @@ import { ReportSubscriberService } from './services/reportSubscriber.service';
       { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' },
       { path: 'taskBoard/:id', component: TaskBoardComponent, pathMatch: 'full' },
       { path: 'report/:role', component: ReportComponent, pathMatch: 'full' },
-      { path: 'openedReport/:type', component: OpenedReportComponent, pathMatch: "full" }
+      { path: 'openedReport/:type', component: OpenedReportComponent, pathMatch: "full" },
+      { path: 'teamReportOpened/:type', component: TeamReportOpenedComponent, pathMatch: "full" }
     ])
   ],
   providers: [ReportSubscriberService, TeamService, ReportService, TaskSubscriber, TaskService, UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],

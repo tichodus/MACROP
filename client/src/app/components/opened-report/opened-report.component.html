@@ -1,2 +1,5 @@
-<user-report #userReport [projectId] = 'this._projectId' *ngIf="this._role!='Owner' && this._role!='Team Leader'" ></user-report>
-<team-report #teamReport [projectId] = 'this._projectId'  *ngIf="this._role == 'Team Leader'"></team-report>
+<user-report id='userReport' #userReport (rendered)='this.initUserReport()' [projectId]='this._projectId' ></user-report>
+<!-- <team-report id='teamReport' #teamReport (rendered)='this.initTeamReport()' [projectId]='this._projectId' ></team-report> -->
+
+<!-- *ngIf="this._role!='Owner' && this._role!='Team Leader'"  -->
+<!-- *ngIf="this._role == 'Team Leader'" -->

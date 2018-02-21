@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input, EventEmitter } from '@angular/core';
 import { UserModalDialogComponent } from '../user-modal-dialog/user-modal-dialog.component';
 import { User } from '../../models/user';
 import { ReportService } from '../../services/report.service';
@@ -17,8 +17,11 @@ export class UserReportComponent implements OnInit {
   private _report: string;
   private _reportObject: any;
   private _reportExist: boolean;
+  
+  rendered:EventEmitter<any>;
   constructor(private reportService: ReportService, reportSubscriber: ReportSubscriberService) {
     this._reportExist = false;
+    this.rendered = new EventEmitter();
 
   }
 
@@ -31,11 +34,13 @@ export class UserReportComponent implements OnInit {
         this._report = this._reportObject.data;
         this._reportExist = true;
       }
+      this.rendered.emit(null);
     })
   }
 
   public initReport(userId: string, projectId: string) {
-    debugger;
+    this._user._id = userId;
+    this.projectId = projectId;
     this.reportService.getReport(userId, projectId, this._user.username).subscribe(report => {
       this._reportObject = report.json();
       console.log(report.json());
@@ -61,8 +66,5 @@ export class UserReportComponent implements OnInit {
     }
 
   }
-
-
-
 
 }

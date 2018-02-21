@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-opened-report',
-  templateUrl: './opened-report.component.html',
-  styleUrls: ['./opened-report.component.css']
+  selector: 'app-team-report-opened',
+  templateUrl: './team-report-opened.component.html',
+  styleUrls: ['./team-report-opened.component.css']
 })
-export class OpenedReportComponent implements OnInit {
-  @ViewChild('userReport') userReport;
+export class TeamReportOpenedComponent implements OnInit {
+
   @ViewChild('teamReport') teamReport;
 
   private _role: string;
@@ -27,7 +27,7 @@ export class OpenedReportComponent implements OnInit {
 
   initOnFocuse(role: string, userId: string, projectId: string) {
 
-    this.userReport.initReport(userId, projectId);
+    this.teamReport.initReport(userId, projectId);
 
 
     // this.teamReport.initReport(userId, projectId);
@@ -35,14 +35,13 @@ export class OpenedReportComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    console.log(this.userReport);
+    console.log(this.teamReport);
     console.log(this.userId);
 
-    this.userReport.initReport(this.userId, this.projectId);
+    this.teamReport.initReport(this.userId, this.projectId);
 
     // this.teamReport.initReport(this.userId, this.projectId);
 
   }
-
 
 }
