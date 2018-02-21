@@ -44,6 +44,7 @@ import "froala-editor/js/froala_editor.pkgd.min.js";
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { ReportService } from './services/report.service';
 import { CreateTeamModalComponent } from './components/create-team-modal/create-team-modal.component';
+import { TeamService } from './services/team.service';
 
 
 @NgModule({
@@ -95,7 +96,7 @@ import { CreateTeamModalComponent } from './components/create-team-modal/create-
       { path: 'report/:role', component: ReportComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [ReportService,TaskSubscriber, TaskService, UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
+  providers: [TeamService,ReportService,TaskSubscriber, TaskService, UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

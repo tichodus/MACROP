@@ -14,7 +14,7 @@ router.post("/createTeam", (req, res, next) => {
     let projectId = req.body.projectId;
     let teamLeader = req.body.leaderId;
     let members = req.body.members;
-    models.teams.create({ name: name, projectID: projectId, leader: leaderId, tasks: [], members: members }, (err, doc) => {
+    models.teams.create({ name: name, projectID: projectId, leader: teamLeader, tasks: [], members: members }, (err, doc) => {
         if (err)
             res.send(err);
         else

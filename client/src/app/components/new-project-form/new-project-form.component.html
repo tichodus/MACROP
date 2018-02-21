@@ -29,7 +29,9 @@
               <td>
                 <div class='form-group'>
                   <select class='form-control' #role>
-                    <option *ngFor='let key of rolesKeys' value={{key}} >{{this.roles[key]}}</option>
+                    <option *ngFor='let key of rolesKeys' value={{key}}>
+                      <div *ngIf='key != "owner"'>{{this.roles[key]}}</div>
+                    </option>
                   </select>
                 </div>
               </td>

@@ -13,7 +13,7 @@
       <add-user-to-task-modal #addUserToTaskModal [projectId]='this._projectId' [role]='this._role'></add-user-to-task-modal>
       <empty-task *ngIf='this._createTask' (taskCreated)='this._createTask = false' [projectId]='this._projectId' [projectOwner]='this._userID'></empty-task>
       <div dnd-draggable [dragEnabled]="true" [dragData]="task" *ngFor='let task of _tasks; let i = index' class='panel panel-default task-card'>
-        <div *ngIf='this._isProjectOwner == "true"' class='float-right'>
+        <div *ngIf='this._isProjectOwner == "true" || this._role=="Team Leader"' class='float-right'>
           <button class='btn btn-success btn-sm' (click)='addUserToTask(addUserToTaskModal,task)'>
             <strong>+</strong>
           </button>

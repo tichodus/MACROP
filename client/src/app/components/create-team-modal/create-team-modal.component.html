@@ -1,3 +1,45 @@
-<p>
-  create-team-modal works!
-</p>
+<modal #createTeamModal>
+  <ng-template #modalHeader>
+    <h2>Create Team</h2>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class='row'>
+      <div class='col-xs-12 col-sm-12 col-md-12'>
+        <div class='form-group'>
+          <label>Team Name</label>
+          <input #teamName class='form-control' />
+        </div>
+        <div class="table-responsive">
+          <table class='table table-striped'>
+            <thead>
+              <tr>
+                <td>Username</td>
+                <td>Role</td>
+                <td>Add</td>
+              </tr>
+            </thead>
+            <tbody *ngIf='this._availableUsers'>
+              <tr *ngFor='let user of this._availableUsers | paginate: {itemsPerPage:4,currentPage:page}'>
+                <td>
+                  <span id='username'>{{user.username}}</span>
+                </td>
+                <td>
+                  <span id='role'>{{this.getRoleForSpecificUser(user)}}</span>
+                </td>
+                <td>
+                  <button (click)='onUserActionHandler(user)' class='btn btn-success btn-md'>
+                    <strong>+</strong>
+                  </button>
+                </td>
+              </tr>
+              <div class='paginator col-xs-12 col-sm-12 col-md-12'>
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+              </div>
+            </tbody>
+          </table>
+          <button (click)='createTeam(teamName.value)' class='btn btn-success btn-md'>Create Team</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</modal>

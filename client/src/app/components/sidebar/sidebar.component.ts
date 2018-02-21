@@ -40,7 +40,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   createTask() {
     this.onTaskCreate.emit(null);
   }
-
+  createTeam(createTeamModal) {
+    createTeamModal.open();
+  }
   removeUser(removeUserModal) {
     removeUserModal.open();
   }
@@ -52,6 +54,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   openReport() {
     document.getElementById("main").style.marginLeft = '0';
     document.getElementById("main").className = 'no-transition';
+    console.log(this.role);
     this.router.navigate(['/report', this.role], { queryParams: { projectId: this.projectId } });
   }
 

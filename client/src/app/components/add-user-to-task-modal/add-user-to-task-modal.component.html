@@ -16,13 +16,13 @@
             </thead>
             <tbody *ngIf='this._users'>
               <tr *ngFor='let user of this._availableUsersForAdding | paginate: {itemsPerPage:4,currentPage:page}'>
-                <td>
+                <td *ngIf='this.getRoleForSpecificUser(user) != "Owner"'>
                   <span id='username'>{{user.username}}</span>
                 </td>
-                <td>
+                <td *ngIf='this.getRoleForSpecificUser(user) != "Owner"'>
                   <span id='role'>{{this.getRoleForSpecificUser(user)}}</span>
                 </td>
-                <td>
+                <td *ngIf='this.getRoleForSpecificUser(user) != "Owner"'>
                   <button (click)='onUserActionHandler(user)' class='btn btn-success btn-md'>
                     <strong>+</strong>
                   </button>

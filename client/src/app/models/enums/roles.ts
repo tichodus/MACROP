@@ -1,5 +1,6 @@
 
 export enum Roles {
+    owner = 'Owner',
     teamLeader = "Team Leader",
     frontEndDeveloper = "Frontend Developer",
     backEndDeveloper = "Backend Developer",

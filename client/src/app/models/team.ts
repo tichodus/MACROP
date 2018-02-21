@@ -10,7 +10,7 @@ export class Team {
         this.projectId = projectId;
         this.name = name;
         this.leaderId = leaderId;
-        this.members = members;
-        this.tasks = tasks;
+        this.members = members || new Array();
+        this.tasks = tasks || new Array();
     }
 }
