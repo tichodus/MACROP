@@ -9,12 +9,37 @@ mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop",
     useMongoClient: true,
 });
 
+router.get("/getReport/:id", (req, res, next) => {
+    let reportId = req.params.id;
+    models.reports.findById(reportId, (err, report) => {
+        if (err)
+            res.send(err);
+        else
+            res.json(report);
+    });
+});
+
+router.post("/getReportsOfTeam/", (req, res, next) => {
+    let reports = new Array();
+    let result = new Array();
+    reports = req.body.reports;
+    reports.forEach(el => {
+        models.reports.findById(el, (err, doc) => {
+            if (err)
+                res.send(err);
+            else
+                result.push(doc);
+        });
+    });
+    res.json(result);
+});
+
 router.post("/getReport", (req, res, next) => {
     let owner = req.body.ownerId;
     let projectId = req.body.projectId;
-    let name = req.body.name;
+    //let name = req.body.name;
     console.log(req.body);
-    models.reports.findOne({ name: name, owner: owner, projectID: projectId }, (err, doc) => {
+    models.reports.findOne({ owner: owner, projectID: projectId }, (err, doc) => {
         if (err)
             res.send(err);
         else {
