@@ -1,0 +1,2 @@
+<user-report #userReport [projectId] = 'this._projectId' *ngIf="this._role!='Owner' && this._role!='Team Leader'" ></user-report>
+<team-report #teamReport [projectId] = 'this._projectId'  *ngIf="this._role == 'Team Leader'"></team-report>

@@ -45,6 +45,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { ReportService } from './services/report.service';
 import { CreateTeamModalComponent } from './components/create-team-modal/create-team-modal.component';
 import { TeamService } from './services/team.service';
+import { OpenedReportComponent } from './components/opened-report/opened-report.component';
+import { ReportSubscriberService } from './services/reportSubscriber.service';
 
 
 @NgModule({
@@ -71,6 +73,7 @@ import { TeamService } from './services/team.service';
     ProjectReportComponent,
     ReportComponent,
     CreateTeamModalComponent,
+    OpenedReportComponent,
   ],
   imports: [
     FroalaEditorModule.forRoot(),
@@ -94,9 +97,10 @@ import { TeamService } from './services/team.service';
       { path: 'newProject', component: NewProjectFormComponent, pathMatch: 'full' },
       { path: 'taskBoard/:id', component: TaskBoardComponent, pathMatch: 'full' },
       { path: 'report/:role', component: ReportComponent, pathMatch: 'full' },
+      { path: 'openedReport/:type', component: OpenedReportComponent, pathMatch: "full" }
     ])
   ],
-  providers: [TeamService,ReportService,TaskSubscriber, TaskService, UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
+  providers: [ReportSubscriberService, TeamService, ReportService, TaskSubscriber, TaskService, UsersService, ProjectSubscriber, UserSessionSubject, RequestService, ProjectService, ChatSubscriber, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

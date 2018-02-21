@@ -24,14 +24,17 @@ router.post("/getReportsOfTeam/", (req, res, next) => {
     let result = new Array();
     reports = req.body.reports;
     reports.forEach(el => {
-        models.reports.findById(el, (err, doc) => {
+        result.push(models.reports.findById(el, (err, doc) => {
             if (err)
                 res.send(err);
             else
-                result.push(doc);
-        });
+                return el;
+        }));
     });
-    res.json(result);
+    Promise.all(result).then(result => {
+        console.log(result);
+        res.json(result);
+    });
 });
 
 router.post("/getReport", (req, res, next) => {
@@ -60,20 +63,21 @@ router.post("/createReport", (req, res, next) => {
         if (err)
             res.send(err);
         else {
+            console.log(doc.id);
             models.teams.findOne({ $and: [{ projectID: projectId }, { members: owner }] }, (err, team) => {
                 if (err)
                     res.send(err);
                 else {
-                    console.log(team);
+                    // console.log(team);
                     models.reports.findOne({
                         $and: [{ owner: team.leader },
-                            { projectID: projectId }
+                        { projectID: projectId }
                         ]
                     }, (err, report) => {
                         if (err)
                             res.send(err);
                         else {
-                            console.log(report);
+                            // console.log(report);
                             if (report != null) {
                                 report.reports.push(doc._id);
                                 report.save();
@@ -82,14 +86,14 @@ router.post("/createReport", (req, res, next) => {
                                     name: team.name,
                                     owner: team.leader,
                                     type: "teamReport",
-                                    reports: [doc._id],
+                                    reports: [doc.id],
                                     data: "",
                                     projectID: projectId
                                 }, (err, teamLeaderReport) => {
                                     if (err)
                                         res.send(err);
-                                    else
-                                        console.log(teamLeaderReport);
+                                    // else
+                                    // console.log(teamLeaderReport);
                                 });
                             }
                         }

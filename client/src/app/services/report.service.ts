@@ -34,4 +34,16 @@ export class ReportService {
         }
         return this.requestService.createPostRequestHeader(reqObj, 'getReport');
     }
+
+    getReportById(reportId: string) {
+        return this.requestService.createGetRequestHeader(reportId, 'getReport');
+    }
+
+    getReportsOfTeam(reports: Array<string>) {
+        let reqObj = {
+            reports: reports
+        }
+
+        return this.requestService.createPostRequestHeader(reqObj, 'getReportsOfTeam');
+    }
 }

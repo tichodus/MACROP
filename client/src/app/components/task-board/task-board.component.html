@@ -59,7 +59,7 @@
           </div>
         </div>
         <div>
-          <div *ngIf='this._isProjectOwner == "true" ' class='form-group'>
+          <div *ngIf='this._isProjectOwner == "true" || this._role=="Team Leader"' class='form-group'>
             <textarea id='subtask' #subTask (keyup)='addSubtask($event,task,subTask.value)' class='form-control' type='text-content'
               placeholder='Enter subtask content...' #subTask></textarea>
           </div>
