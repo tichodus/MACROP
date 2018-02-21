@@ -14,7 +14,7 @@ export class AppComponent {
   private socket;
   constructor(private taskSubscriber: TaskSubscriber, private projectSubscriber: ProjectSubscriber, private chatSubscriber: ChatSubscriber) {
     window.addEventListener('hashchange', (e) => console.log(e));
-    this.socket = Socket('http://localhost:3000/');
+    this.socket = Socket('https://macrop.herokuapp.com/');
     this.socket.on('projectCreated', (data) => {
       this.projectSubscriber.update(data);
     });
