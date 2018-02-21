@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const models = require('../schemas and models/data-model.js');
 var io = require('../sockets/io');
+var methods = require("../methods/request-methods.js");
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop", {
@@ -19,6 +20,24 @@ router.get("/getReport/:id", (req, res, next) => {
     });
 });
 
+router.post("/getReportsOfLeaders", (req, res, next) => {
+    let reports = req.body.reports;
+    let results = new Array();
+    reports.forEach(rep => {
+        results.push(models.reports.findById(rep, (err, doc) => {
+            if (err)
+                res.send(err);
+            else {
+                return doc;
+            }
+        }));
+    });
+    Promise.all(results).then(result => {
+        //console.log(result);
+        res.json(result);
+    });
+});
+
 router.post("/getReportsOfTeam/", (req, res, next) => {
     let reports = new Array();
     let result = new Array();
@@ -32,7 +51,7 @@ router.post("/getReportsOfTeam/", (req, res, next) => {
         }));
     });
     Promise.all(result).then(result => {
-        console.log(result);
+        //console.log(result);
         res.json(result);
     });
 });
@@ -71,7 +90,7 @@ router.post("/createReport", (req, res, next) => {
                   //  if (team == null) return;
                     models.reports.findOne({
                         $and: [{ owner: team.leader },
-                        { projectID: projectId }
+                            { projectID: projectId }
                         ]
                     }, (err, report) => {
                         if (err)

@@ -52,17 +52,18 @@ function CreatePutOptions(path, data) {
     return options;
 };
 
-function CreateRequest(options, data) {
+function CreateRequest(options, data, metoda) {
 
     var req = https.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
         res.setEncoding('utf8');
         res.on('data', function(chunk) {
-            console.log('BODY: ' + chunk);
+            // console.log('BODY: ' + chunk);
+            metoda(chunk);
         });
         res.on('end', () => {
-            console.log('No more data in response.');
+            //console.log('No more data in response.');
         });
     });
 
@@ -77,29 +78,29 @@ function CreateRequest(options, data) {
 
 
 
-exports.postMethod = function PostMethod(path, data) {
+exports.postMethod = function PostMethod(path, data, metoda) {
 
     var options = CreatePostOptions(path, data);
-    console.log(options);
-    var req = CreateRequest(options, data);
+
+    var req = CreateRequest(options, data, metoda);
 
     req.end();
 };
 
-exports.deleteMethod = function DeleteMehod(path, data) {
+exports.deleteMethod = function DeleteMehod(path, data, metoda) {
 
     var options = CreatePostOptions(path, data);
 
-    var req = CreateRequest(options, data);
+    var req = CreateRequest(options, data, metoda);
 
     req.end();
 };
 
-exports.putMethod = function PutMethod(path, data) {
+exports.putMethod = function PutMethod(path, data, metoda) {
 
     var options = CreatePostOptions(path, data);
 
-    var req = CreateRequest(options, data);
+    var req = CreateRequest(options, data, metoda);
 
     req.end();
 };
