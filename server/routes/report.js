@@ -30,12 +30,49 @@ router.post("/createReport", (req, res, next) => {
     let reports = req.body.reports;
     let data = req.body.data;
     let projectId = req.body.projectId;
-    console.log(req.body);
+    //console.log(req.body);
     models.reports.create({ name: name, owner: owner, type: type, reports: reports, data: data, projectID: projectId }, (err, doc) => {
         if (err)
             res.send(err);
-        else
+        else {
+            models.teams.findOne({ $and: [{ projectID: projectId }, { members: owner }] }, (err, team) => {
+                if (err)
+                    res.send(err);
+                else {
+                    console.log(team);
+                    models.reports.findOne({
+                        $and: [{ owner: team.leader },
+                            { projectID: projectId }
+                        ]
+                    }, (err, report) => {
+                        if (err)
+                            res.send(err);
+                        else {
+                            console.log(report);
+                            if (report != null) {
+                                report.reports.push(doc._id);
+                                report.save();
+                            } else {
+                                models.reports.create({
+                                    name: team.name,
+                                    owner: team.leader,
+                                    type: "teamReport",
+                                    reports: [doc._id],
+                                    data: "",
+                                    projectID: projectId
+                                }, (err, teamLeaderReport) => {
+                                    if (err)
+                                        res.send(err);
+                                    else
+                                        console.log(teamLeaderReport);
+                                });
+                            }
+                        }
+                    });
+                }
+            });
             res.json(doc);
+        }
     });
 });
 

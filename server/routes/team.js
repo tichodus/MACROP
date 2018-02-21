@@ -12,7 +12,9 @@ mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop",
 router.post("/createTeam", (req, res, next) => {
     let name = req.body.name;
     let projectId = req.body.projectId;
-    models.teams.create({ name: name, projectID: projectId, leader: [], tasks: [], members: [] }, (err, doc) => {
+    let teamLeader = req.body.leaderId;
+    let members = req.body.members;
+    models.teams.create({ name: name, projectID: projectId, leader: leaderId, tasks: [], members: members }, (err, doc) => {
         if (err)
             res.send(err);
         else

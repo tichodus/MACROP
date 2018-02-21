@@ -178,12 +178,14 @@ router.put("/removeProjectUser", (req, res, next) => {
                     res.send(err);
             });
 
-            models.teams.findOne({ $and: [{ projectID: projectId }, { members: deletedUser }] }, (err, team) => {
+            models.teams.findOne({ $and: [{ projectID: projectId }, { $or: [{ members: deletedUser }, { leader: deletedUser }] }] }, (err, team) => {
                 if (err)
                     res.send(err);
                 else {
                     if (team) {
                         team.members = team.members.filter(member => member != deletedUser);
+                        if (team.leader == deletedUser)
+                            team.leader = "";
                         team.save();
                     }
                 }
