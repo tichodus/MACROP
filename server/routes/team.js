@@ -30,18 +30,29 @@ router.get("/getProjectTeams/:id", (req, res, next) => {
     });
 });
 
+router.post("/getTeamByLeaderId", (req, res, next) => {
+    let leader = req.body.leaderId;
+    let projectId = req.body.projectId;
+    models.teams.findOne({ leader: leader, projectID: projectId }, (err, doc) => {
+        if (err)
+            res.send(err);
+        else {
+            res.json(doc);
+        }
+    });
+});
+
 router.put("/addUserToTeam", (req, res, next) => {
-    let userId = req.body.userId;
+    let user = req.body.user;
     let teamId = req.body.teamId;
-    let leader = req.body.leader;
     models.teams.findById(teamId, (err, team) => {
         if (err)
             res.send(err);
         else {
-            if (leader == "true")
-                team.leader = userId;
+            if (user.role == "teamLeader")
+                team.leader = user._id;
             else
-                team.members.push(userId);
+                team.members.push(user._id);
             team.save();
             res.json(team);
             io.emit("userAddedToTeam", team);

@@ -9,7 +9,7 @@ mongoose.connect("mongodb://stefan:stefan281195@ds129156.mlab.com:29156/macrop",
     useMongoClient: true,
 });
 
-router.post("/getProject/", (req, res, next) => {
+router.post("/getReport", (req, res, next) => {
     let owner = req.body.owner;
     let projectId = req.body.projectId;
     let name = req.body.name;
@@ -24,7 +24,7 @@ router.post("/getProject/", (req, res, next) => {
 
 router.post("/createReport", (req, res, next) => {
     let name = req.body.name;
-    let owner = req.body.owner;
+    let owner = req.body.ownerId;
     let type = req.body.type;
     let reports = req.body.reports;
     let data = req.body.data;
