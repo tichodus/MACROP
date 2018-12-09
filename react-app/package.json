@@ -1,0 +1,14 @@
+{
+  "name": "macrop",
+  "private": true,
+  "main": "packages/app/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --watch --inline --mode development"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.5.1"
+  }
+}

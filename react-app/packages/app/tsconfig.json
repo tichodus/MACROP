@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "jsx": "react",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "lib": ["es5", "es6", "es7", "es2017", "dom"],
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "stripInternal": true
+  },
+  "include": ["./src/**/*", "../components/index.ts"]
+}
